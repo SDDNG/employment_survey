@@ -40,34 +40,34 @@ def get_respondent():
 
     while True:
         role = input("Which of these roles best describes your position, enter number 1 to 8: ")
-        if validate_experience_and_role("role",role):
+        if validate_numeric(1,9,role):
             break
     
     while True:
         experience = input("How many years have your worked in Information Technology: ")
-        if validate_experience_and_role("experience",experience):
+        if validate_numeric(1,51,experience):
             break
 
-    #experience = input("How many years have your worked in Information Technology: ")
-    return name,email,role,experience
+    while True:
+        salary = input("What is your current salary: ")
+        if validate_numeric(10000,500001,salary):
+            break    
 
-# def validate_experience_and_role(which, role): 
-def validate_experience_and_role(which, value):
+    return name,email,role,experience,salary
+
+
+def validate_numeric(start,end,value):
     """
-    Inside the try, check valid integer raised and if role, check integer within valid range. Raises
+    Inside the try, check valid integer raised and if valid range. Raises
     ValueError.
     """
+
     try:
-        if not int(value):
+        number = int(value)    
+        if start and number not in range(start,end):
             raise ValueError(
-                f"You must enter a number"
+                f"You must choose a number between {start} and {end - 1}"
             ) 
-        else:
-            number = int(value)    
-            if which == "role" and number not in range(1,8):
-                raise ValueError(
-                    f"You must choose a role from 1 to 8"
-                ) 
     except ValueError as e:
         print(f"{e}! Please try again ...\n")
         return False  
