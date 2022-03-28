@@ -1,5 +1,12 @@
 import gspread
 from google.oauth2.service_account import Credentials
+# Python program to validate an Email
+ 
+# import re module
+ 
+# re module provides support
+# for regular expressions
+import re
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -24,24 +31,48 @@ def get_respondent():
     """
     Get survey respondents name, email, role and years experience
     """
-    name = input("Please enter your name: ")
-    email = input("Please enter your email: ")
-    roles = SHEET.worksheet("roles").col_values(1)
-    for i = 1 to len(roles):
-        print(f"{i}. {roles[i]})
-        
-    #print("1. Frontend Developer\n")
-    #print("2. Backend Developer\n")
-    #print("3. Full Stack Developer\n")
-    #print("4. Senior Frontend Developer\n")
-    #print("5. Senior Backend Developer\n")
-    #print("6. Senior Full Stack Developer\n")
-    #print("7. Technical Lead\n")
-    #print("8. Head of Engineering\n")
-    job = input("Which of these roles best describes your position: ")
-    experience = input("How many years have your worked in Information Technology: ")
-    return name,email,job,experience
+    name = input("Please enter your name (optional): ")
+    email = input("Please enter your email (optional): ") 
+    
+    titles = SHEET.worksheet("roles").col_values(1)
+    for i in range( 1, len(titles)):
+        print(f"{i}. {titles[i].title()}")
 
+    while True:
+        role = input("Which of these roles best describes your position, enter number 1 to 8: ")
+        if validate_experience_and_role("role",role):
+            break
+    
+    while True:
+        experience = input("How many years have your worked in Information Technology: ")
+        if validate_experience_and_role("experience",experience):
+            break
+
+    #experience = input("How many years have your worked in Information Technology: ")
+    return name,email,role,experience
+
+# def validate_experience_and_role(which, role): 
+def validate_experience_and_role(which, value):
+    """
+    Inside the try, check valid integer raised and if role, check integer within valid range. Raises
+    ValueError.
+    """
+    try:
+        if not int(value):
+            raise ValueError(
+                f"You must enter a number"
+            ) 
+        else:
+            number = int(value)    
+            if which == "role" and number not in range(1,8):
+                raise ValueError(
+                    f"You must choose a role from 1 to 8"
+                ) 
+    except ValueError as e:
+        print(f"{e}! Please try again ...\n")
+        return False  
+
+    return True    
 
 def update_respondents(respondent):
     """
