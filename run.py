@@ -59,7 +59,7 @@ def get_respondent():
 
 def validate_numeric(start,end,value):
     """
-    Inside the try, check valid integer raised and if valid range. Raises
+    Inside the try, check valid integer raised and if so within valid range. Raises
     ValueError.
     """
     try:
@@ -76,7 +76,7 @@ def validate_numeric(start,end,value):
 
 def update_respondents(respondent):
     """
-    Update worksheet, add new row with the list provided
+    Update worksheet, add new row with the respondent filled in
     """
     print("\nUpdating respondents worksheet...\n")
     worksheet_to_update = SHEET.worksheet("respondents")
@@ -84,11 +84,32 @@ def update_respondents(respondent):
     print("Respondents worksheet updated successfully.\n")
 
 def menu(respondent):
-    print(get_menu_text())
-    choice = get_menu_choice()
-    process_menu_choice(choice,respondent) 
+    """
+    Print the user menu and ask the user to choose an option
+    """
+
+    menu_text = """
+What would you like to do now:
+        1. Compare the respondent's salary to other respondents in terms of role
+        2. Compare the respondent's salary to other respondents in terms of experience
+        3. Compare the respondent's salary to other respondents 
+        4. Compare the respondent's salary in terms of role nationally
+        5. Compare the respondent's salary in terms of experience nationally
+        6. Compare the respondent's salary nationally
+        7. Exit
+        
+        """
+    choice = None
+    while choice != "7":
+        print(menu_text)
+        choice = get_menu_choice()
+        process_menu_choice(choice,respondent) 
+
 
 def get_menu_choice():
+    """
+    Validate the menu option the user choose and return if valid
+    """
     first_menu_option = 1
     last_plus_one_menu_option = 8
     
@@ -100,10 +121,13 @@ def get_menu_choice():
     return choice  
 
 def process_menu_choice(choice, respondent):
+    """
+    Execute the appropriate function based on the user's choice 
+    """
     if choice == "1":
-        print("Report " + choice)
+        compare_respondents_to_other_respondents("role",respondent)
     elif choice == "2":
-        print("Report " + choice)
+        compare_respondents_to_other_respondents("experience",respondent)
     elif choice == "3":
         print("Report " + choice)
     elif choice == "4":
@@ -116,23 +140,55 @@ def process_menu_choice(choice, respondent):
         print("Exit") 
       
 
-          
-
-def get_menu_text():
-    
-    menu_text = """
-What would you like to do now:
-        1. Compare your salary to other respondents in terms of role
-        2. Compare your salary to other respondents in terms of experience
-        3. Compare your salary to other respondents in terms of role AND experience
-        4. Compare your salary in terms of role
-        5. Compare your salary in terms of experience
-        6. Compare your salary in terms of role AND experience
-        7. Exit
+def compare_respondents_to_other_respondents(comparitor,respondent):
+    """
+    Compares the respondent's salary to other respondents based on the comparitor passed
+    i.e. role or experience 
+    """
+    if(check_enough_respondents(comparitor,respondent)):
+        print(f"comparing respondents salary to other respondents salaries based on {comparitor}")
+    else:
+        print(f"There are not enough other resondents with the same as {comparitor}")     
         
-        """
+
+def check_enough_respondents(comparitor, respondent):
+    """
+    If there are not enough similar respondents (at least 10) to do a comparison 
+    to then this function returns False 
+    """
+    number_of_matching_respondents = 0
+    name,email,role,experience,salary = respondent
     
-    return menu_text 
+    worksheet = SHEET.worksheet("respondents")
+
+    if comparitor == "role":
+        values_list = worksheet.col_values(3)
+        for i in range(2,len(values_list)):
+            if values_list[i] == role:
+                number_of_matching_respondents += 1
+    else:
+        values_list = worksheet.col_values(4)
+        for i in range(2,len(values_list)):
+            if values_list[i] == experience:
+                number_of_matching_respondents += 1
+
+    print(f"Number of respondents with same {comparitor} is {number_of_matching_respondents}")
+    if number_of_matching_respondents > 10:
+        return True
+    else:
+        return False                
+                    
+
+
+
+
+
+    #if SHEET.worksheet("respondents").row_count > 11:
+     #   print("Enough respondents")
+      #  return True
+    #else:
+     #   print(f"There are only {respondents -1} and there need to be at least 10 to do a comparison")
+      #  return False
 
 
 def main():
