@@ -129,7 +129,7 @@ def process_menu_choice(choice, respondent):
     elif choice == "2":
         compare_respondents_to_other_respondents("experience",respondent)
     elif choice == "3":
-        print("Report " + choice)
+        compare_respondents_to_other_respondents(None,respondent)
     elif choice == "4":
         print("Report " + choice)
     elif choice == "5":
@@ -146,7 +146,7 @@ def compare_respondents_to_other_respondents(comparitor,respondent):
     i.e. role or experience 
     """
     if(check_enough_respondents(comparitor,respondent)):
-        print(f"comparing respondents salary to other respondents salaries based on {comparitor}")
+        print(f"*** back to here *** comparing respondents salary to other respondents salaries based on {comparitor}")
     else:
         print(f"There are not enough other resondents with the same as {comparitor}")     
         
@@ -154,7 +154,7 @@ def compare_respondents_to_other_respondents(comparitor,respondent):
 def check_enough_respondents(comparitor, respondent):
     """
     If there are not enough similar respondents (at least 10) to do a comparison 
-    to then this function returns False 
+    to then this function returns False. The comparitor can either be role or experience 
     """
     number_of_matching_respondents = 0
     name,email,role,experience,salary = respondent
@@ -166,30 +166,19 @@ def check_enough_respondents(comparitor, respondent):
         for i in range(2,len(values_list)):
             if values_list[i] == role:
                 number_of_matching_respondents += 1
-    else:
+    elif comparitor == "experience":
         values_list = worksheet.col_values(4)
         for i in range(2,len(values_list)):
             if values_list[i] == experience:
                 number_of_matching_respondents += 1
+    else:
+         number_of_matching_respondents = len(worksheet.col_values(3)) - 1           
 
-    print(f"Number of respondents with same {comparitor} is {number_of_matching_respondents}")
     if number_of_matching_respondents > 10:
         return True
     else:
         return False                
                     
-
-
-
-
-
-    #if SHEET.worksheet("respondents").row_count > 11:
-     #   print("Enough respondents")
-      #  return True
-    #else:
-     #   print(f"There are only {respondents -1} and there need to be at least 10 to do a comparison")
-      #  return False
-
 
 def main():
     print_introduction()
