@@ -61,7 +61,6 @@ def validate_numeric(start,end,value):
     Inside the try, check valid integer raised and if valid range. Raises
     ValueError.
     """
-
     try:
         number = int(value)    
         if start and number not in range(start,end):
@@ -83,9 +82,62 @@ def update_respondents(respondent):
     worksheet_to_update.append_row(respondent) 
     print("Respondents worksheet updated successfully.\n")
 
+def menu(respondent):
+    print(get_menu_text())
+    choice = get_menu_choice()
+    process_menu_choice(choice,respondent) 
+
+def get_menu_choice():
+    first_menu_option = 1
+    last_plus_one_menu_option = 8
+    
+    while True:
+        choice = input("Please select option: ")
+        if validate_numeric(first_menu_option,last_plus_one_menu_option,choice):
+            break 
+
+    return choice  
+
+def process_menu_choice(choice, respondent):
+    if choice == "1":
+        print("Report " + choice)
+    elif choice == "2":
+        print("Report " + choice)
+    elif choice == "3":
+        print("Report " + choice)
+    elif choice == "4":
+        print("Report " + choice)
+    elif choice == "5":
+        print("Report " + choice)
+    elif choice == "6":
+        print("Report " + choice)
+    else:
+        print("Exit") 
+      
+
+          
+
+def get_menu_text():
+    
+    menu_text = """
+    What would you like to do now:
+        1. Compare your salary to other respondents in terms of role
+        2. Compare your salary to other respondents in terms of experience
+        3. Compare your salary to other respondents in terms of role AND experience
+        4. Compare your salary in terms of role
+        5. Compare your salary in terms of experience
+        6. Compare your salary in terms of role AND experience
+        7. Exit
+        
+        """
+    
+    return menu_text 
+
+
 def main():
     print_introduction()
     respondent = get_respondent()
     update_respondents(respondent)
+    menu(respondent)
 
 main()    
