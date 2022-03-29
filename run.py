@@ -31,25 +31,26 @@ def get_respondent():
     """
     Get survey respondents name, email, role and years experience
     """
-    name = input("Please enter your name (optional): ")
-    email = input("Please enter your email (optional): ") 
+    name = input("\nPlease enter your name (optional): ")
+    email = input("\nPlease enter your email (optional): ") 
     
+    print("\nWhich of these roles best describes your position\n") 
     titles = SHEET.worksheet("roles").col_values(1)
     for i in range( 1, len(titles)):
-        print(f"{i}. {titles[i].title()}")
+        print(f"       {i}. {titles[i].title()}")
 
     while True:
-        role = input("Which of these roles best describes your position, enter number 1 to 8: ")
+        role = input("\nEnter number 1 to 8: ")
         if validate_numeric(1,9,role):
             break
     
     while True:
-        experience = input("How many years have your worked in Information Technology: ")
+        experience = input("\nHow many years have your worked in Information Technology: ")
         if validate_numeric(1,51,experience):
             break
 
     while True:
-        salary = input("What is your current salary: ")
+        salary = input("\nWhat is your current salary: ")
         if validate_numeric(10000,500001,salary):
             break    
 
@@ -77,7 +78,7 @@ def update_respondents(respondent):
     """
     Update worksheet, add new row with the list provided
     """
-    print(f"Updating respondents worksheet...\n")
+    print("\nUpdating respondents worksheet...\n")
     worksheet_to_update = SHEET.worksheet("respondents")
     worksheet_to_update.append_row(respondent) 
     print("Respondents worksheet updated successfully.\n")
@@ -120,7 +121,7 @@ def process_menu_choice(choice, respondent):
 def get_menu_text():
     
     menu_text = """
-    What would you like to do now:
+What would you like to do now:
         1. Compare your salary to other respondents in terms of role
         2. Compare your salary to other respondents in terms of experience
         3. Compare your salary to other respondents in terms of role AND experience
