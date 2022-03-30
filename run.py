@@ -140,28 +140,28 @@ def process_menu_choice(choice, respondent):
     """
     if choice == "1":
         # the function called compares the salary of respondent passed to those of other repsondents with the same role 
-        compare_respondents_to_other_respondents("role",respondent)
+        compare_respondent_to_other_respondents("role",respondent)
     elif choice == "2":
         # the function called compares the salary of respondent passed to those of other respondents with the same or similar experience
-        compare_respondents_to_other_respondents("experience",respondent)
+        compare_respondent_to_other_respondents("experience",respondent)
     elif choice == "3":
         # the function called will compare the salary of respondent passed to those of all other repsondents
-        compare_respondents_to_other_respondents(None,respondent)
+        compare_respondent_to_other_respondents(None,respondent)
     elif choice == "4":
         # the function called compares the salary of respondent passed to those nationally with the same role
-        print("Report " + choice)
+        compare_respondent_role_nationally(respondent)
     elif choice == "5":
         # the function called compares the salary of respondent passed to those nationally with the same or similar experience
-        print("Report " + choice)
+        compare_respondent_experience_nationally(respondent)
     elif choice == "6":
         # the function called will compare the salary of respondent passed to others in the IT sector nationally
-        print("Report " + choice)
+        compare_respondent_all_nationally(respondent)
     else:
         # exit
         print("\nExiting survey ........\n\n") 
       
 
-def compare_respondents_to_other_respondents(comparitor,respondent):
+def compare_respondent_to_other_respondents(comparitor,respondent):
     """
     Compares the respondent's salary to other respondents based on the comparitor passed i.e. role or experience or if no 
     comparitor is passed then the respondent is compared to all other respondents
@@ -171,7 +171,7 @@ def compare_respondents_to_other_respondents(comparitor,respondent):
     if(check_enough_respondents(comparitor,respondent)):
         # if there are enough qualifying respondents to compare to the respondent in question, a function to display the comparison
         # is called
-        display_respondent_report(comparitor,respondent)
+        display_respondent_to_other_respondents_report(comparitor,respondent)
     else:
         # if there are not enough qualifying respondents, the user is informed whereupon they are immediately returned to the report menu
         print(f"There are not enough other respondents with the same or similar {comparitor}")     
@@ -215,7 +215,7 @@ def check_enough_respondents(comparitor, respondent):
     else:
         return False 
 
-def display_respondent_report(comparitor,respondent):
+def display_respondent_to_other_respondents_report(comparitor,respondent):
     """
     This function is called if the user has chosen to compare the salary of the respondent in question with other respondents, on 
     the basis of role, experience or simply all other respondents. 
@@ -297,9 +297,74 @@ def display_respondent_report(comparitor,respondent):
     print(f"      The lowest salary was {bottom_salary}.\n\n")                            
                     
 
+def compare_respondent_role_nationally(respondent):
+    """
+    This function is called if the user has chosen to compare the salary of the respondent with national figures, on the basis 
+    of role. 
+    """
+
+    # the details of the respondent passed are stored in relevant variables
+    name,email,role,experience,salary = respondent
+
+    # open the worksheet with details of national figures for the respondents' roles
+    if int(role) in range(1,4):
+        # respondent is a developer
+        worksheet = SHEET.worksheet("developer")
+    elif int(role) in range(4,7):
+        # respondent is a senior developer
+        worksheet = SHEET.worksheet("senior_developer")
+    elif int(role) in range(7,10):
+        # respondent is a technical lead
+        worksheet = SHEET.worksheet("tech_lead")
+    else:
+        # respondent is a head of engineering
+        worksheet = SHEET.worksheet("head_engineering")
+
+    # get the salary floors and corresponding quartiles
+    salaries = worksheet.col_values(1)
+    quartiles = worksheet.col_values(2)
+
+    # the salary of the respondent passed is converted to an interger for comparison purposes
+    numeric_of_salary = int(salary)
+    # quartile respondent is in has to be at least the bottom quartile even if less than floor of bottom quartile
+    quartile_of_respondent = "4" 
+
+    # read through all of the salary quartiles
+    for i in range(1,len(salaries)):
+        if int(salaries[i]) < numeric_of_salary:
+            quartile_of_respondent = quartiles[i]
+
+    # create a gramatically correct suffix for the quartile for display purposes
+    quartile_suffixes = ["st","nd","rd","th"]
+    suffix = quartile_suffixes[int(quartile_of_respondent) - 1]
+    """
+    if int(quartile_of_respondent) == 1:
+        suffix = "st"
+    elif int(quartile_of_respondent) == 2:
+        suffix = "nd"
+    elif int(quartile_of_respondent) == 3:
+        suffix = "rd"
+    else:
+        suffix = "th"            
+    """
+
+    # retrieve the title corresponding to the role of the respondent in question
+    titles = SHEET.worksheet("roles").col_values(1)
+    title = titles[int(role)].title()           
+
+    print(f"\nThe respondent in question has a role of {title}, experence of {experience} years and a salary of {salary} euros.")
+     
+    print(f"\n      They are in the {quartile_of_respondent}{suffix} quartile in terms of salary.\n")
+
+    quartile_suffixes.reverse()
+
+    for i in range(1,len(salaries)):
+        print(f"{quartiles[i]}{quartile_suffixes[i-1]}   {salaries[i]}")
+
+
 def main():
     """
-    The main function, it displays a welcome message, gets a respondent details and then presents the report menu
+    The main function, it displays a welcome message, gets a respondent's details and then presents the report menu
     """
     print_introduction()
     respondent = get_respondent()
