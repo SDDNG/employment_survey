@@ -146,7 +146,6 @@ def compare_respondents_to_other_respondents(comparitor,respondent):
     i.e. role or experience 
     """
     if(check_enough_respondents(comparitor,respondent)):
-        print(f"*** back to here *** comparing respondents salary to other respondents salaries based on {comparitor}")
         display_respondent_report(comparitor,respondent)
     else:
         print(f"There are not enough other resondents with the same or similar {comparitor}")     
@@ -185,27 +184,34 @@ def display_respondent_report(comparitor,respondent):
     worksheet = SHEET.worksheet("respondents")
     salaries_list = worksheet.col_values(5)
 
+    if comparitor == "role":
+        values_list = worksheet.col_values(3)
+    elif comparitor == "experience":
+        values_list = worksheet.col_values(4)
+
     numeric_of_salary = int(salary)
 
-    top_salary = 0
-    bottom_salary = 0
+    top_salary = numeric_of_salary
+    bottom_salary = numeric_of_salary
     salaries_above = 0
     salaries_below = 0
     salaries_same = 0
     number_of_matching_respondents = 0
-    for i in range(1,len(salaries_list)):
-        number_of_matching_respondents += 1
-        if int(salaries_list[i]) > numeric_of_salary:
-                salaries_above += 1
-        elif int(salaries_list[i]) < numeric_of_salary:
-            salaries_below += 1
-        else:
-            salaries_same += 1
 
-        if i == 1:
-            top_salary = int(salaries_list[i])
-            bottom_salary = int(salaries_list[i])
-        else:
+    for i in range(1,len(salaries_list)):
+        if ((comparitor == None) or 
+            (comparitor == "role" and values_list[i] == role) or 
+            (comparitor == "experience" and 
+            (int(values_list[i]) in range(int(experience) - 1, int(experience) + 2)))):
+            number_of_matching_respondents += 1
+            if int(salaries_list[i]) > numeric_of_salary:
+                salaries_above += 1
+            elif int(salaries_list[i]) < numeric_of_salary:
+                salaries_below += 1
+            else:
+                salaries_same += 1
+
+            
             if int(salaries_list[i]) > top_salary:
                 top_salary = int(salaries_list[i])
             elif int(salaries_list[i]) < bottom_salary:
