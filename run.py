@@ -276,7 +276,7 @@ def display_respondent_to_other_respondents_report(comparitor,respondent):
     titles = SHEET.worksheet("roles").col_values(1)
     title = titles[int(role)].title()           
 
-    print(f"\nThe respondent in question has a role of {title}, experence of {experience} years and a salary of {salary} euros.")
+    print(f"\nThe respondent in question has a role of {title}, experience of {experience} years and a salary of {salary} euros.")
     
     # give the total of matching respondents, taking 1 away as the respondent passed is also in the list of respondents so they are not
     # a match
@@ -313,7 +313,7 @@ def compare_respondent_role_nationally(respondent):
     elif int(role) in range(4,7):
         # respondent is a senior developer
         worksheet = SHEET.worksheet("senior_developer")
-    elif int(role) in range(7,10):
+    elif int(role) == 7:
         # respondent is a technical lead
         worksheet = SHEET.worksheet("tech_lead")
     else:
@@ -352,14 +352,15 @@ def compare_respondent_role_nationally(respondent):
     titles = SHEET.worksheet("roles").col_values(1)
     title = titles[int(role)].title()           
 
-    print(f"\nThe respondent in question has a role of {title}, experence of {experience} years and a salary of {salary} euros.")
+    print(f"\nThe respondent in question has a role of {title}, experience of {experience} years and a salary of {salary} euros.")
      
     print(f"\n      They are in the {quartile_of_respondent}{suffix} quartile in terms of salary.\n")
 
     quartile_suffixes.reverse()
 
-    for i in range(1,len(salaries)):
-        print(f"{quartiles[i]}{quartile_suffixes[i-1]}   {salaries[i]}")
+    print(f"      The national salary quartiles are:\n")
+    for i in range(len(salaries),1,-1):
+        print(f"            {quartiles[i - 1 ]}{quartile_suffixes[i-2]} quartile salaries above {salaries[i - 1]}")
 
 
 def main():
