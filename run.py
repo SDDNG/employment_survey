@@ -1,12 +1,6 @@
 import gspread
 from google.oauth2.service_account import Credentials
-# Python program to validate an Email
- 
-# import re module
- 
-# re module provides support
-# for regular expressions
-import re
+
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -18,6 +12,15 @@ CREDS = Credentials.from_service_account_file('creds.json')
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS) 
 SHEET = GSPREAD_CLIENT.open('employment_survey')
+
+"""
+This program accepts user input as part of a salary survey. The respondent can optionally provide 
+name and email, and must provide role (from a list of defined roles), experience in terms of years
+and salary. Once the respondents response has been registerd they are provided the option to compare
+their salary to other respondents or to national results. In both categories, respondents can 
+compare in terms of role, experience or all others
+
+"""
 
 def print_introduction():
     """
@@ -45,7 +48,7 @@ def get_respondent():
             break
     
     while True:
-        experience = input("\nHow many years have your worked in Information Technology: ")
+        experience = input("\nHow many years have you worked in Information Technology: ")
         if validate_numeric(1,51,experience):
             break
 
@@ -217,6 +220,11 @@ def display_respondent_report(comparitor,respondent):
             elif int(salaries_list[i]) < bottom_salary:
                 bottom_salary = int(salaries_list[i])
 
+    titles = SHEET.worksheet("roles").col_values(1)
+    title = titles[int(role)].title()           
+
+    print(f"\nThe respondent in question has a role of {title}, experence of {experience} years and a salary of {salary} euros.")
+    
     if comparitor == None:
          print(f"\n   There were {number_of_matching_respondents} respondents in total:\n")
     else:
