@@ -147,10 +147,10 @@ def compare_respondents_to_other_respondents(comparitor,respondent):
     """
     if(check_enough_respondents(comparitor,respondent)):
         print(f"*** back to here *** comparing respondents salary to other respondents salaries based on {comparitor}")
+        display_respondent_report(comparitor,respondent)
     else:
-        print(f"There are not enough other resondents with the same as {comparitor}")     
+        print(f"There are not enough other resondents with the same or similar {comparitor}")     
         
-
 def check_enough_respondents(comparitor, respondent):
     """
     If there are not enough similar respondents (at least 10) to do a comparison 
@@ -163,13 +163,13 @@ def check_enough_respondents(comparitor, respondent):
 
     if comparitor == "role":
         values_list = worksheet.col_values(3)
-        for i in range(2,len(values_list)):
+        for i in range(1,len(values_list)):
             if values_list[i] == role:
                 number_of_matching_respondents += 1
     elif comparitor == "experience":
         values_list = worksheet.col_values(4)
-        for i in range(2,len(values_list)):
-            if values_list[i] == experience:
+        for i in range(1,len(values_list)):
+            if int(values_list[i]) in range(int(experience) - 1, int(experience) + 2):
                 number_of_matching_respondents += 1
     else:
          number_of_matching_respondents = len(worksheet.col_values(3)) - 1           
@@ -177,7 +177,57 @@ def check_enough_respondents(comparitor, respondent):
     if number_of_matching_respondents > 10:
         return True
     else:
-        return False                
+        return False 
+
+def display_respondent_report(comparitor,respondent):
+    name,email,role,experience,salary = respondent
+    
+    worksheet = SHEET.worksheet("respondents")
+    salaries_list = worksheet.col_values(5)
+
+    numeric_of_salary = int(salary)
+
+    top_salary = 0
+    bottom_salary = 0
+    salaries_above = 0
+    salaries_below = 0
+    salaries_same = 0
+    number_of_matching_respondents = 0
+    for i in range(1,len(salaries_list)):
+        number_of_matching_respondents += 1
+        if int(salaries_list[i]) > numeric_of_salary:
+                salaries_above += 1
+        elif int(salaries_list[i]) < numeric_of_salary:
+            salaries_below += 1
+        else:
+            salaries_same += 1
+
+        if i == 1:
+            top_salary = int(salaries_list[i])
+            bottom_salary = int(salaries_list[i])
+        else:
+            if int(salaries_list[i]) > top_salary:
+                top_salary = int(salaries_list[i])
+            elif int(salaries_list[i]) < bottom_salary:
+                bottom_salary = int(salaries_list[i])
+
+    if comparitor == None:
+         print(f"\n   There were {number_of_matching_respondents} respondents in total:\n")
+    else:
+         print(f"\n   There were {number_of_matching_respondents} respondents with the same or similar {comparitor}:\n")
+
+    if {salaries_above} != 0:
+        print(f"      Of those {salaries_above} had a higher salary than the respondent.\n")
+    if {salaries_above} != 0:
+        print(f"      Of those {salaries_below} had a lower salary than the respondent.\n")
+    if {salaries_same} != 0:
+        print(f"      Of those {salaries_same -1} had the same salary as the respondent.\n")
+     
+    print(f"      The greatest salary was {top_salary}.\n")
+     
+    print(f"      The lowest salary was {bottom_salary}.\n\n")                            
+
+
                     
 
 def main():
