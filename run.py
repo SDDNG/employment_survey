@@ -289,11 +289,11 @@ def display_respondent_to_other_respondents_report(comparitor,respondent):
     else:
          print(f"\n   There were {number_of_matching_respondents -1} respondents with the same or similar {comparitor}:\n")
 
-    if {salaries_above} != 0:
+    if salaries_above != 0:
         print(f"      Of those {salaries_above} had a higher salary than the respondent.\n")
-    if {salaries_above} != 0:
+    if salaries_above != 0:
         print(f"      Of those {salaries_below} had a lower salary than the respondent.\n")
-    if {salaries_same} != 0:
+    if (salaries_same - 1) != 0:
         print(f"      Of those {salaries_same -1} had the same salary as the respondent.\n")
      
     print(f"      The greatest salary was {top_salary}.\n")
