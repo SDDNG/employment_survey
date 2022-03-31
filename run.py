@@ -1,6 +1,8 @@
 import gspread
 from google.oauth2.service_account import Credentials
 
+import re
+
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -39,7 +41,12 @@ def get_respondent():
     Get survey respondents name, email, role and years experience
     """
     name = input("\nPlease enter your name (optional): ")
-    email = input("\nPlease enter your email (optional): ") 
+
+    while True:
+        email = input("\nPlease enter your email (optional): ")
+        # an email address is not mndatory but if one has been specified then it must be valid
+        if email_validate(email) or email == "":
+            break 
     
     print("\nWhich of these roles best describes your position: \n") 
     # Presents a list of roles retrieved from a reference sheet in the Google sheet where
@@ -67,6 +74,19 @@ def get_respondent():
             break    
     # when all data is valid return the respondent        
     return name,email,role,experience,salary
+
+def email_validate(email_entered):
+    """
+    function to validate email addresses entered have correct format
+    """
+    regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
+    if (re.fullmatch(regex, email_entered)):
+        #email is a valid format
+        return True
+
+    #email is not a valid format
+    print("\n        Error: If you specify an email, it must have a valid format!")
+    return False
 
 
 def validate_numeric(start,end,value):
