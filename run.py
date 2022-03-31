@@ -149,13 +149,13 @@ def process_menu_choice(choice, respondent):
         compare_respondent_to_other_respondents(None,respondent)
     elif choice == "4":
         # the function called compares the salary of respondent passed to those nationally with the same role
-        compare_respondent_role_nationally(respondent)
+        compare_respondent_nationally("role", respondent)
     elif choice == "5":
         # the function called compares the salary of respondent passed to those nationally with the same or similar experience
         compare_respondent_experience_nationally(respondent)
     elif choice == "6":
         # the function called will compare the salary of respondent passed to others in the IT sector nationally
-        compare_respondent_all_nationally(respondent)
+        compare_respondent_nationally(None, respondent)
     else:
         # exit
         print("\nExiting survey ........\n\n") 
@@ -297,71 +297,77 @@ def display_respondent_to_other_respondents_report(comparitor,respondent):
     print(f"      The lowest salary was {bottom_salary}.\n\n")                            
                     
 
-def compare_respondent_role_nationally(respondent):
+def compare_respondent_nationally(comparitor, respondent):
     """
     This function is called if the user has chosen to compare the salary of the respondent with national figures, on the basis 
-    of role. 
+    of role or to all of the IT sector nationally. 
     """
 
     # the details of the respondent passed are stored in relevant variables
     name,email,role,experience,salary = respondent
 
-    # open the worksheet with details of national figures for the respondents' roles
-    if int(role) in range(1,4):
-        # respondent is a developer
-        worksheet = SHEET.worksheet("developer")
-    elif int(role) in range(4,7):
-        # respondent is a senior developer
-        worksheet = SHEET.worksheet("senior_developer")
-    elif int(role) == 7:
-        # respondent is a technical lead
-        worksheet = SHEET.worksheet("tech_lead")
+    # depending on whether a comparitor was passed, open the appropriate worksheet. If the comparitor is "role", then based on the role
+    # of the respondent in question, open the worksheet that contains the details for the salary quartiles or that role. If no 
+    # comparitor was passed then the worksheet with the percentiles for all workers in the IT sector nationally is opened.  
+    
+    if comparitor == "role":
+        # assume respondent is in bottom salary quartile initially, this will change if salary is found to exceed quartiles
+        tile_of_respondent = "4" 
+        # if the comparitor is role then the salaries are stored by quartiles and number of tiles is 4
+        tile_type = "quartile"
+        number_of_tiles = 4
+        # open the worksheet with details of national figures for the respondents' roles
+        if int(role) in range(1,4):
+            # respondent is a developer
+            worksheet = SHEET.worksheet("developer")
+        elif int(role) in range(4,7):
+            # respondent is a senior developer
+            worksheet = SHEET.worksheet("senior_developer")
+        elif int(role) == 7:
+            # respondent is a technical lead
+            worksheet = SHEET.worksheet("tech_lead")
+        else:
+            # respondent is a head of engineering
+            worksheet = SHEET.worksheet("head_engineering")
     else:
-        # respondent is a head of engineering
-        worksheet = SHEET.worksheet("head_engineering")
+        # assume respondent is in bottom salary percentile initially, this will change if salary is found to exceed percentiles
+        tile_of_respondent = "100" 
+        # if no comparitor passed then a national comparison to all IT is required and the salaries are stored by percentiles  
+        # and number of tiles is 100
+        tile_type = "percentile"
+        number_of_tiles = 100
+        # get salary percentiles for entire IT sector nationally
+        worksheet = SHEET.worksheet("national")
 
-    # get the salary floors and corresponding quartiles
+    # get the salary floors and corresponding quartiles/percetiles
     salaries = worksheet.col_values(1)
-    quartiles = worksheet.col_values(2)
+    tiles = worksheet.col_values(2)
 
     # the salary of the respondent passed is converted to an interger for comparison purposes
     numeric_of_salary = int(salary)
-    # quartile respondent is in has to be at least the bottom quartile even if less than floor of bottom quartile
-    quartile_of_respondent = "4" 
-
-    # read through all of the salary quartiles
-    for i in range(1,len(salaries)):
+    
+    # read through all of the salary quartiles/percentiles
+    # note 'number_of_tiles' used here for range rather than length of column to avoid possibility of junk in spreadsheet rows  
+    for i in range(1,(number_of_tiles + 1)):
         if int(salaries[i]) < numeric_of_salary:
-            quartile_of_respondent = quartiles[i]
-
-    # create a gramatically correct suffix for the quartile for display purposes
-    quartile_suffixes = ["st","nd","rd","th"]
-    suffix = quartile_suffixes[int(quartile_of_respondent) - 1]
-    """
-    if int(quartile_of_respondent) == 1:
-        suffix = "st"
-    elif int(quartile_of_respondent) == 2:
-        suffix = "nd"
-    elif int(quartile_of_respondent) == 3:
-        suffix = "rd"
-    else:
-        suffix = "th"            
-    """
+            tile_of_respondent = tiles[i]
 
     # retrieve the title corresponding to the role of the respondent in question
     titles = SHEET.worksheet("roles").col_values(1)
     title = titles[int(role)].title()           
 
+    # Print details of the respondent being compared
     print(f"\nThe respondent in question has a role of {title}, experience of {experience} years and a salary of {salary} euros.")
-     
-    print(f"\n      They are in the {quartile_of_respondent}{suffix} quartile in terms of salary.\n")
 
-    quartile_suffixes.reverse()
+    # Specify which quartile or percentile (depending on the comparison) they fall into in terms of salary 
+    print(f"\n      They are in {tile_type} {tile_of_respondent} in terms of salary.\n")
 
-    print(f"      The national salary quartiles are:\n")
+    # Give some context, so print out the salary ranges for all quartiles (if role is being compared) or every 10th percentile
+    # if role not being compared i.e. comparison required to all IT workers nationally
+    print(f"      The national salary {tile_type}s are:\n")
     for i in range(len(salaries),1,-1):
-        print(f"            {quartiles[i - 1 ]}{quartile_suffixes[i-2]} quartile salaries above {salaries[i - 1]}")
-
+        if (comparitor == "role") or ( (i%20 -1) == 0):
+            print(f"             {tile_type} {tiles[i - 1 ]} contains salaries above {salaries[i - 1]}\n")
 
 def main():
     """
