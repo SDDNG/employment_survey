@@ -81,10 +81,10 @@ def email_validate(email_entered):
     """
     regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
     if (re.fullmatch(regex, email_entered)):
-        #email is a valid format
+        # email is a valid format
         return True
 
-    #email is not a valid format
+    # email is not a valid format
     print("\n        Error: If you specify an email, it must have a valid format!")
     return False
 
@@ -300,7 +300,7 @@ def display_respondent_to_other_respondents_report(comparitor,respondent):
     titles = SHEET.worksheet("roles").col_values(1)
     title = titles[int(role)].title()           
 
-    print(f"\nThe respondent in question has a role of {title}, experience of {experience} years and a salary of {salary} euros.")
+    print(f"\nThe respondent in question has a role of {title}, experience of {experience} years and a salary of {'€{:,}'.format(numeric_of_salary)}.")
     
     # give the total of matching respondents, taking 1 away as the respondent passed is also in the list of respondents so they are not
     # a match
@@ -316,9 +316,9 @@ def display_respondent_to_other_respondents_report(comparitor,respondent):
     if (salaries_same - 1) != 0:
         print(f"      Of those {salaries_same -1} had the same salary as the respondent.\n")
      
-    print(f"      The greatest salary was {top_salary}.\n")
+    print(f"      The greatest salary was {'€{:,}'.format(top_salary)}.\n")
      
-    print(f"      The lowest salary was {bottom_salary}.\n\n")                            
+    print(f"      The lowest salary was {'€{:,}'.format(bottom_salary)}.\n\n")                            
                     
 
 def compare_respondent_nationally(comparitor, respondent):
@@ -385,7 +385,7 @@ def compare_respondent_nationally(comparitor, respondent):
     title = titles[int(role)].title()           
 
     # Print details of the respondent being compared
-    print(f"\nThe respondent in question has a role of {title}, experience of {experience} years and a salary of {salary} euros.")
+    print(f"\nThe respondent in question has a role of {title}, experience of {experience} years and a salary of {'€{:,}'.format(numeric_of_salary)} euros.")
 
     # Specify which quartile or percentile (depending on the comparison) they fall into in terms of salary 
     print(f"\n      They are in {tile_type} {tile_of_respondent} {role_qualifier_text}in terms of salary.\n")
@@ -395,7 +395,7 @@ def compare_respondent_nationally(comparitor, respondent):
     print(f"      The national salary {tile_type}s are:\n")
     for i in range(len(salaries),1,-1):
         if (comparitor == "role") or ( (i%20 -1) == 0):
-            print(f"             {tile_type} {tiles[i - 1 ]} contains salaries above {salaries[i - 1]}\n")
+            print(f"             {tile_type} {tiles[i - 1 ]} contains salaries above {'€{:,}'.format(int(salaries[i - 1]))}\n")
 
 
 def compare_respondent_nationally_experience(respondent):
@@ -424,9 +424,9 @@ def compare_respondent_nationally_experience(respondent):
     title = titles[int(role)].title()           
 
     # Print details of the respondent being compared
-    print(f"\nThe respondent in question has a role of {title}, experience of {experience} years and a salary of {salary} euros.")
+    print(f"\nThe respondent in question has a role of {title}, experience of {experience} years and a salary of {'€{:,}'.format(int(salary))} euros.")
 
-    print(f"\n        The average salary nationally for this level of experience is {average_salary}." )
+    print(f"\n        The average salary nationally for this level of experience is {'€{:,}'.format(int(salaries[numeric_of_experience]))}." )
     
     # express salary as a percentage of average salary
     if numeric_of_salary < average_salary:
