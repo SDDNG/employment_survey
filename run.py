@@ -1,8 +1,11 @@
 import gspread
 from google.oauth2.service_account import Credentials
 
+# import "re" module to validate emails if entered
 import re
 
+# import "os" module to clear screen 
+import os
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -28,13 +31,20 @@ def print_introduction():
     """
     Print a Welcome message at the start of the survey
     """
-    # clear the screen, later will use an OS command to do this
-    for n in range(40):
-        print("")
-
+    # clear the screen
+    clearConsole()
     print("\nWelcome to the Information Technology Salary Survey\n")
     print("Thank you for participating, please enter your details below\n")
     return
+
+def clearConsole():
+    """
+    Clears the terminal screen
+    """
+    command = 'clear'
+    if os.name in ('nt', 'dos'):  # If Machine is running on Windows, use cls
+        command = 'cls'
+    os.system(command)
 
 def get_respondent():
     """
