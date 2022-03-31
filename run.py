@@ -26,6 +26,10 @@ def print_introduction():
     """
     Print a Welcome message at the start of the survey
     """
+    # clear the screen, later will use an OS command to do this
+    for n in range(40):
+        print("")
+
     print("\nWelcome to the Information Technology Salary Survey\n")
     print("Thank you for participating, please enter your details below\n")
     return
@@ -37,7 +41,7 @@ def get_respondent():
     name = input("\nPlease enter your name (optional): ")
     email = input("\nPlease enter your email (optional): ") 
     
-    print("\nWhich of these roles best describes your position\n") 
+    print("\nWhich of these roles best describes your position: \n") 
     # Presents a list of roles retrieved from a reference sheet in the Google sheet where
     # the respondents results will be stored
     titles = SHEET.worksheet("roles").col_values(1)
@@ -152,7 +156,7 @@ def process_menu_choice(choice, respondent):
         compare_respondent_nationally("role", respondent)
     elif choice == "5":
         # the function called compares the salary of respondent passed to those nationally with the same or similar experience
-        compare_respondent_experience_nationally(respondent)
+        compare_respondent_nationally_experience(respondent)
     elif choice == "6":
         # the function called will compare the salary of respondent passed to others in the IT sector nationally
         compare_respondent_nationally(None, respondent)
@@ -316,6 +320,8 @@ def compare_respondent_nationally(comparitor, respondent):
         # if the comparitor is role then the salaries are stored by quartiles and number of tiles is 4
         tile_type = "quartile"
         number_of_tiles = 4
+        # set a string for insertion into report if role is a comparitor to explain the context of the quartile they land in
+        role_qualifier_text = "for their role "
         # open the worksheet with details of national figures for the respondents' roles
         if int(role) in range(1,4):
             # respondent is a developer
@@ -336,6 +342,8 @@ def compare_respondent_nationally(comparitor, respondent):
         # and number of tiles is 100
         tile_type = "percentile"
         number_of_tiles = 100
+        # if role is not being used as a comparitor set the role qualifier text to an empty string as their is no qualifier
+        role_qualifier_text = ""
         # get salary percentiles for entire IT sector nationally
         worksheet = SHEET.worksheet("national")
 
@@ -360,7 +368,7 @@ def compare_respondent_nationally(comparitor, respondent):
     print(f"\nThe respondent in question has a role of {title}, experience of {experience} years and a salary of {salary} euros.")
 
     # Specify which quartile or percentile (depending on the comparison) they fall into in terms of salary 
-    print(f"\n      They are in {tile_type} {tile_of_respondent} in terms of salary.\n")
+    print(f"\n      They are in {tile_type} {tile_of_respondent} {role_qualifier_text}in terms of salary.\n")
 
     # Give some context, so print out the salary ranges for all quartiles (if role is being compared) or every 10th percentile
     # if role not being compared i.e. comparison required to all IT workers nationally
@@ -368,6 +376,47 @@ def compare_respondent_nationally(comparitor, respondent):
     for i in range(len(salaries),1,-1):
         if (comparitor == "role") or ( (i%20 -1) == 0):
             print(f"             {tile_type} {tiles[i - 1 ]} contains salaries above {salaries[i - 1]}\n")
+
+
+def compare_respondent_nationally_experience(respondent):
+    """
+    This function is called if the user has chosen to compare the salary of the respondent with national figures, on the basis 
+    of experience. 
+    """
+    # the details of the respondent passed are stored in relevant variables
+    name,email,role,experience,salary = respondent
+
+    # Open the worksheet which holds national salary figures on the basis of experience  
+    worksheet = SHEET.worksheet("experience")
+
+    # get the salaries for years of experience
+    salaries = worksheet.col_values(2)
+    
+    # the salary and expereince of the respondent passed are converted to intergers for comparison  and retrieval purposes
+    numeric_of_salary = int(salary)
+    numeric_of_experience = int(experience)
+    
+    # retrieve the average salary nationally for the respondent's experience
+    average_salary = int(salaries[numeric_of_experience])
+ 
+    # retrieve the title corresponding to the role of the respondent in question
+    titles = SHEET.worksheet("roles").col_values(1)
+    title = titles[int(role)].title()           
+
+    # Print details of the respondent being compared
+    print(f"\nThe respondent in question has a role of {title}, experience of {experience} years and a salary of {salary} euros.")
+
+    print(f"\n        The average salary nationally for this level of experience is {average_salary}." )
+    
+    # express salary as a percentage of average salary
+    if numeric_of_salary < average_salary:
+        salary_percent = int(round((1 - (numeric_of_salary / average_salary)) * 100,0 ))
+        print(f"\n        The respondent's salary is {salary_percent} percent below the national average for this level of experience." )
+    elif numeric_of_salary > average_salary:    
+        salary_percent =  int(round( ((numeric_of_salary / average_salary) -1) * 100,0))
+        print(f"\n        The respondent's salary is {salary_percent} percent above the national average for this level of experience." )
+    else:
+        print(f"\n        The respondent's salary is equal to the national average for this level of experience." )    
 
 def main():
     """
