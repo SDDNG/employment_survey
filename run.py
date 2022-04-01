@@ -34,7 +34,7 @@ def print_introduction():
     # clear the screen
     clearConsole()
     print("\nWelcome to the Information Technology Salary Survey\n")
-    print("Thank you for participating, please enter your details below\n")
+    wait = input("Press any key to continue: ")
     return
 
 def clearConsole():
@@ -50,6 +50,11 @@ def get_respondent():
     """
     Get survey respondents name, email, role and years experience
     """
+    #clear the screen
+    clearConsole()
+
+    print("DATA ENTRY SCREEN FOR RESPONDENT DATA")
+
     name = input("\nPlease enter your name (optional): ")
 
     while True:
@@ -69,7 +74,7 @@ def get_respondent():
 
     while True:
         # there are eight valid roles
-        role = input("\nEnter number 1 to 8: ")
+        role = input("\n\nEnter role 1 to 8: ")
         if validate_numeric(1,9,role):
             break
     
@@ -113,7 +118,7 @@ def validate_numeric(start,end,value):
                 f"You must choose a number between {start} and {end - 1}"
             ) 
     except ValueError as e:
-        print(f"{e}! Please try again ...\n")
+        print(f"        Error: {e}! Please try again ...\n")
         return False  
 
     return True    
@@ -136,7 +141,9 @@ def report_menu(respondent):
     """
 
     menu_text = """
-Which report would you like to run:
+                                REPORT MENU
+                                -----------
+Which report would you like to run:\n
         1. Compare the respondent's salary to other respondents in terms of role
         2. Compare the respondent's salary to other respondents in terms of experience
         3. Compare the respondent's salary to other respondents 
@@ -149,16 +156,16 @@ Which report would you like to run:
     choice = None
     # the menu will continue to be presented after a report is chosen until 'Exit is chosen'
     while choice != "7":
+        # clear the screen
+        clearConsole()
         print(menu_text)
         # validate that the option chosen is valid and store it
         choice = get_menu_choice(1,7)
         # pass the report option and details of the respondent entered to a function which
         # will validate the report choice in terms of whether there is enough data to run and, if so,
         # to subsequently run the relevant report 
-        #process_menu_choice(choice,respondent)
-        """
-        Execute the appropriate function based on the user's choice of report
-        """
+        #
+        #Execute the appropriate function based on the user's choice of report
         if choice == "1":
             # the function called compares the salary of respondent passed to those of other repsondents with the same role 
             compare_respondent_to_other_respondents("role",respondent)
@@ -177,9 +184,13 @@ Which report would you like to run:
         elif choice == "6":
             # the function called will compare the salary of respondent passed to others in the IT sector nationally
             compare_respondent_nationally(None, respondent)
-        else:
+        #use an 'elif' here rather than an else, so screen can be paused before running menu again, except in case of exit
+        elif choice == "7":
             # exit
             print("\nExiting report menu ........\n\n") 
+
+        if choice != "7":
+            wait = input("Press any key to continue: ")    
 
 
 def get_menu_choice(first_menu_option,last_menu_option):
@@ -197,32 +208,6 @@ def get_menu_choice(first_menu_option,last_menu_option):
 
     return choice  
 
-def process_menu_choice(choice, respondent):
-    """
-    Execute the appropriate function based on the user's choice of report
-    """
-    if choice == "1":
-        # the function called compares the salary of respondent passed to those of other repsondents with the same role 
-        compare_respondent_to_other_respondents("role",respondent)
-    elif choice == "2":
-        # the function called compares the salary of respondent passed to those of other respondents with the same or similar experience
-        compare_respondent_to_other_respondents("experience",respondent)
-    elif choice == "3":
-        # the function called will compare the salary of respondent passed to those of all other repsondents
-        compare_respondent_to_other_respondents(None,respondent)
-    elif choice == "4":
-        # the function called compares the salary of respondent passed to those nationally with the same role
-        compare_respondent_nationally("role", respondent)
-    elif choice == "5":
-        # the function called compares the salary of respondent passed to those nationally with the same or similar experience
-        compare_respondent_nationally_experience(respondent)
-    elif choice == "6":
-        # the function called will compare the salary of respondent passed to others in the IT sector nationally
-        compare_respondent_nationally(None, respondent)
-    else:
-        # exit
-        print("\nExiting report menu ........\n\n") 
-      
 
 def compare_respondent_to_other_respondents(comparitor,respondent):
     """
@@ -470,14 +455,44 @@ def compare_respondent_nationally_experience(respondent):
     # express salary as a percentage of average salary
     if numeric_of_salary < average_salary:
         salary_percent = int(round((1 - (numeric_of_salary / average_salary)) * 100,0 ))
-        print(f"\n        The respondent's salary is {salary_percent} percent below the national average for this level of experience." )
+        print(f"\n        The respondent's salary is {salary_percent} percent below the national average for this level of experience.\n" )
     elif numeric_of_salary > average_salary:    
         salary_percent =  int(round( ((numeric_of_salary / average_salary) -1) * 100,0))
-        print(f"\n        The respondent's salary is {salary_percent} percent above the national average for this level of experience." )
+        print(f"\n        The respondent's salary is {salary_percent} percent above the national average for this level of experience.\n" )
     else:
-        print(f"\n        The respondent's salary is equal to the national average for this level of experience." )    
+        print(f"\n        The respondent's salary is equal to the national average for this level of experience.\n" )    
 
-def select_respondent_to_be_reported_on(respondents_entered)***
+
+def select_respondent_to_be_reported_on(respondents_entered):
+    """
+    This function allows the user to select the respondent they wish to report on from those added in this session. If there has only
+    been one added, that is automatically selected
+    """
+    if len(respondents_entered) == 1:
+        # Only one respondent entered, so select that one
+        return respondents_entered[0]
+    else:
+        # clear the screen
+        clearConsole()
+        print("          RESPONDENTS ENTERED DURING THIS SESSION")
+        # display the respondents entered in this session
+        print("\nPlease select a respondent from the respondents below:\n")    
+        for i in range(len(respondents_entered)):
+            name,email,role,experience,salary = respondents_entered[i]
+            print(f"        {i+1}. Name: {name} Salary: {'€{:,}'.format(int(salary))}")
+
+        # Validate the respondent number which the user chooses
+        choice = 0
+        # because numeric validator uses an in range function, use the length of the respondents_entered plus one as 
+        # the highest choice possible
+        highest_respondent_possible_to_choose = len(respondents_entered) + 1
+    
+        while True:
+            choice = input("\n\nPlease select respondent you wish to report on: ")
+            if validate_numeric(1,highest_respondent_possible_to_choose,choice):
+                break 
+        # choice needs to be decremented by one to accurately reference the list of respondents entered        
+        return respondents_entered[int(choice) - 1]  
 
 
 def main_menu():
@@ -486,9 +501,8 @@ def main_menu():
     reports for respondents entered. If the user chooses the second option and no respondent's details have been entered, 
     they will be told that they need to enter at least one respondent before they can run reports against a respondent.
     """
-
     menu_text = """
-\nWhat would you like to do:
+\nWhat would you like to do:\n
         1. Enter details for respondent(s)
         2. Run one of the reports for a particular respondent
                     (Note: At least one respondent needs to have been entered)
@@ -501,6 +515,9 @@ def main_menu():
     choice = None
     # the menu will continue to be presented after a report is chosen until 'Exit is chosen'
     while choice != "3":
+        #clear the screen
+        clearConsole()
+        print("                                MAIN MENU")
         print(menu_text)
         # validate that the option chosen is valid and store it
         choice = get_menu_choice(1,3)
@@ -513,6 +530,7 @@ def main_menu():
         # check that at least one respondent exists and if it does open the report menu otherwise advise the person to enter one 
             if len(respondents_entered) == 0:
                 print("\n        Error: You must enter at least one respondent before you can run reports for a particular respondent!")
+                wait = input("\nPress any key to continue: ") 
             else:     
                 # get the user to select a respondent from the respondents entered to be reported on and then offer the report options 
                 respondent = select_respondent_to_be_reported_on(respondents_entered)
@@ -520,8 +538,7 @@ def main_menu():
         else:
         # Exit
             print("\nExiting ........\n\n") 
-    
-    
+        
 
 def main():
     """
@@ -529,9 +546,5 @@ def main():
     """
     print_introduction()
     main_menu()
-
-    #respondent = get_respondent()
-    #update_respondents(respondent)
-    #menu(respondent)
 
 main()    
