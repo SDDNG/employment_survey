@@ -55,9 +55,12 @@ The respondent selected is compared to data held for salaries for people with a 
 ## Report 5: Compare the respondent's salary to national data, in terms of experience
 The respondent selected is compared to data held for salaries for people with the same experience. The salary of the respondent is compared in terms of percentage of the national average for that level of experience.
 
+<img width="759" alt="Experience nationally" src="https://user-images.githubusercontent.com/70945839/161576272-9f336af2-4bef-427c-8547-1c2b865fd484.png">
+
+## Report 6: Compare the respondent's salary to national data, regardless of role or experience
+The respondent selected is compared to data held for salaries for people in the IT sector nationally. The information is saved in percentiles, so the user is told which percentile the respondent falls into and the lower salary range for every 20th pecentile. 
+
 <img width="739" alt="role nationally" src="https://user-images.githubusercontent.com/70945839/161575287-ee6bcd16-5b92-46f4-8974-f4b89b9a966b.png">
-
-
 
 
 
