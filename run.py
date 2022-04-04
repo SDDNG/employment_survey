@@ -243,14 +243,17 @@ def compare_respondent_to_other_respondents(comparitor, respondent):
         # is called
         display_respondent_to_other_respondents_report(comparitor, respondent)
     else:
-        # if there are not enough qualifying respondents, the user is informed whereupon they are immediately returned to the report menu
-        print(f"There are not enough other respondents with the same or similar {comparitor}")
+        # if there are not enough qualifying respondents, the user is informed
+        # whereupon they are immediately returned to the report menu
+        print(f"Not enough other respondents with the same or similar {comparitor}")
 
 
 def check_enough_respondents(comparitor, respondent):
     """
-    If there are not enough similar respondents (at least 10) to do a comparison to then this function returns False.
-    The comparitor can either be role or experience or None, if it's None then there just have to be 10 other respondents in total
+    If there are not enough similar respondents (at least 10) to do a
+    comparison to then this function returns False. The comparitor can
+    either be role or experience or None, if it's None then there just
+    have to be 10 other respondents in total
     """
     number_of_matching_respondents = 0
     name, email, role, experience, salary = respondent
@@ -259,26 +262,32 @@ def check_enough_respondents(comparitor, respondent):
     worksheet = SHEET.worksheet("respondents")
 
     if comparitor == "role":
-        # if the comparitor passed is 'role' then the roles of all of the respondents are checked to see if they match the role of the
+        # if the comparitor passed is 'role' then the roles of all of the
+        # respondents are checked to see if they match the role of the
         # respondent who was passed and if they do, a counter is incremented
         values_list = worksheet.col_values(3)
         for i in range(1, len(values_list)):
             if values_list[i] == role:
                 number_of_matching_respondents += 1
     elif comparitor == "experience":
-        # if the comparitor passed is 'experience' then the experience of all of the respondents are checked to see if they
-        # have a similar amount of experience, i.e. plus or minus a year, to the experience of the respondent who was passed and
+        # if the comparitor passed is 'experience' then the experience of all
+        # of the respondents are checked to see if they
+        # have a similar amount of experience, i.e. plus or minus a year,
+        # to the experience of the respondent who was passed and
         # if they do, a counter is incremented
         values_list = worksheet.col_values(4)
         for i in range(1, len(values_list)):
             if int(values_list[i]) in range(int(experience) - 1, int(experience) + 2):
                 number_of_matching_respondents += 1
     else:
-        # if the comparitor passed is not 'role' or 'experience' then it must be None which means the user chose to compare the
-        # respondent to all other respondents, so the number of all respondents is stored
+        # if the comparitor passed is not 'role' or 'experience' then it
+        # must be None which means the user chose to compare the
+        # respondent to all other respondents, so the number of all
+        # respondents is stored
         number_of_matching_respondents = len(worksheet.col_values(3)) - 1
 
-    # There must be 10 other matching respondents, as the respondent passed is also in the speadsheet, the number of matches must be
+    # There must be 10 other matching respondents, as the respondent
+    # passed is also in the speadsheet, the number of matches must be
     # greater than 10
     if number_of_matching_respondents > 10:
         return True
@@ -288,28 +297,33 @@ def check_enough_respondents(comparitor, respondent):
 
 def display_respondent_to_other_respondents_report(comparitor, respondent):
     """
-    This function is called if the user has chosen to compare the salary of the respondent in question with other respondents, on
+    This function is called if the user has chosen to compare the salary
+    of the respondent in question with other respondents, on
     the basis of role, experience or simply all other respondents.
     """
 
     # the details of the respondent passed are stored in relevant variables
     name, email, role, experience, salary = respondent
 
-    # the worksheet with all of the respondents' details is retrieved and then the salaries of all respondents placed in a variable
+    # the worksheet with all of the respondents' details is retrieved
+    # and then the salaries of all respondents placed in a variable
     worksheet = SHEET.worksheet("respondents")
     salaries_list = worksheet.col_values(5)
 
-    # if a comparitor is passed i.e. it is not None, then it will be "role" or "experience", the details of role or experience of the
+    # if a comparitor is passed i.e. it is not None, then it will be "role"
+    # or "experience", the details of role or experience of the
     # respondents is then placed in a variable
     if comparitor == "role":
         values_list = worksheet.col_values(3)
     elif comparitor == "experience":
         values_list = worksheet.col_values(4)
 
-    # the salary of the respondent passed is converted to an interger for comparison purposes
+    # the salary of the respondent passed is converted to an
+    # interger for comparison purposes
     numeric_of_salary = int(salary)
 
-    # the top salary and bottom salary are set to the salary of the respondent passed and a number of salary counters are initialised
+    # the top salary and bottom salary are set to the salary of the
+    # respondent passed and a number of salary counters are initialised
     top_salary = numeric_of_salary
     bottom_salary = numeric_of_salary
     salaries_above = 0
@@ -319,15 +333,20 @@ def display_respondent_to_other_respondents_report(comparitor, respondent):
 
     # read through all of the respondents' salaries
     for i in range(1, len(salaries_list)):
-        # if a comparitor has not been passed, go straight to counting the other respondents and storing details about their salaries,
-        # otherwise if a comparitor was passed, it must be 'role' or 'experience', if it was 'role' then only those with the same role
-        # will be counted and their details analysed, if the comparitor passed was 'experience' then only other respondents within a
-        # year or experience either way will be counted and their details analysed
+        # if a comparitor has not been passed, go straight to counting the
+        # other respondents and storing details about their salaries,
+        # otherwise if a comparitor was passed, it must be 'role' or
+        # 'experience', if it was 'role' then only those with the same role
+        # will be counted and their details analysed, if the comparitor
+        # passed was 'experience' then only other respondents within a
+        # year or experience either way will be counted and their details
+        # analysed
         if ((comparitor is None) or (comparitor == "role" and values_list[i] == role) or
-            (comparitor == "experience" and (int(values_list[i]) in range(int(experience) - 1, int(experience) + 2)))):
+           (comparitor == "experience" and (int(values_list[i]) in range(int(experience) - 1, int(experience) + 2)))):
             # increment the number of matching respondents
             number_of_matching_respondents += 1
-            # store whether the salary of the respondent is greater than, less than or the same as the respondent passed
+            # store whether the salary of the respondent is greater than,
+            # less than or the same as the respondent passed
             if int(salaries_list[i]) > numeric_of_salary:
                 salaries_above += 1
             elif int(salaries_list[i]) < numeric_of_salary:
@@ -341,13 +360,15 @@ def display_respondent_to_other_respondents_report(comparitor, respondent):
             elif int(salaries_list[i]) < bottom_salary:
                 bottom_salary = int(salaries_list[i])
 
-    # retrieve the title corresponding to the role of the respondent in question
+    # retrieve the title corresponding to the role of the respondent in
+    # question
     titles = SHEET.worksheet("roles").col_values(1)
     title = titles[int(role)].title()
 
     print(f"\nThe respondent in question has a role of {title}, experience of {experience} years and a salary of {'€{:,}'.format(numeric_of_salary)}.")
 
-    # give the total of matching respondents, taking 1 away as the respondent passed is also in the list of respondents so they are not
+    # give the total of matching respondents, taking 1 away as the respondent
+    # passed is also in the list of respondents so they are not
     # a match
     if comparitor is None:
         print(f"\n   There were {number_of_matching_respondents - 1} other respondents in total:\n")
@@ -358,7 +379,7 @@ def display_respondent_to_other_respondents_report(comparitor, respondent):
         print(f"      Of those {salaries_above} had a higher salary than the respondent.\n")
     if salaries_above != 0:
         print(f"      Of those {salaries_below} had a lower salary than the respondent.\n")
-    if salaries_same  != 1:
+    if salaries_same != 1:
         print(f"      Of those {salaries_same -1} had the same salary as the respondent.\n")
 
     print(f"      The greatest salary was {'€{:,}'.format(top_salary)}.\n")
@@ -368,26 +389,34 @@ def display_respondent_to_other_respondents_report(comparitor, respondent):
 
 def compare_respondent_nationally(comparitor, respondent):
     """
-    This function is called if the user has chosen to compare the salary of the respondent with national figures, on the basis
+    This function is called if the user has chosen to compare the salary
+    of the respondent with national figures, on the basis
     of role or to all of the IT sector nationally.
     """
 
     # the details of the respondent passed are stored in relevant variables
     name, email, role, experience, salary = respondent
 
-    # depending on whether a comparitor was passed, open the appropriate worksheet. If the comparitor is "role", then based on the role
-    # of the respondent in question, open the worksheet that contains the details for the salary quartiles or that role. If no
-    # comparitor was passed then the worksheet with the percentiles for all workers in the IT sector nationally is opened.
+    # depending on whether a comparitor was passed, open the appropriate
+    # worksheet. If the comparitor is "role", then based on the role
+    # of the respondent in question, open the worksheet that contains the
+    # details for the salary quartiles or that role. If no
+    # comparitor was passed then the worksheet with the percentiles
+    # for all workers in the IT sector nationally is opened.
 
     if comparitor == "role":
-        # assume respondent is in bottom salary quartile initially, this will change if salary is found to exceed quartiles
+        # assume respondent is in bottom salary quartile initially, this
+        # will change if salary is found to exceed quartiles
         tile_of_respondent = "4"
-        # if the comparitor is role then the salaries are stored by quartiles and number of tiles is 4
+        # if the comparitor is role then the salaries are stored by
+        # quartiles and number of tiles is 4
         tile_type = "quartile"
         number_of_tiles = 4
-        # set a string for insertion into report if role is a comparitor to explain the context of the quartile they land in
+        # set a string for insertion into report if role is a comparitor
+        # to explain the context of the quartile they land in
         role_qualifier_text = "for their role "
-        # open the worksheet with details of national figures for the respondents' roles
+        # open the worksheet with details of national figures for the
+        # respondents' roles
         if int(role) in range(1, 4):
             # respondent is a developer
             worksheet = SHEET.worksheet("developer")
@@ -401,13 +430,16 @@ def compare_respondent_nationally(comparitor, respondent):
             # respondent is a head of engineering
             worksheet = SHEET.worksheet("head_engineering")
     else:
-        # assume respondent is in bottom salary percentile initially, this will change if salary is found to exceed percentiles
+        # assume respondent is in bottom salary percentile initially,
+        # this will change if salary is found to exceed percentiles
         tile_of_respondent = "100"
-        # if no comparitor passed then a national comparison to all IT is required and the salaries are stored by percentiles
+        # if no comparitor passed then a national comparison to all IT
+        # is required and the salaries are stored by percentiles
         # and number of tiles is 100
         tile_type = "percentile"
         number_of_tiles = 100
-        # if role is not being used as a comparitor set the role qualifier text to an empty string as their is no qualifier
+        # if role is not being used as a comparitor set the role qualifier
+        # text to an empty string as their is no qualifier
         role_qualifier_text = ""
         # get salary percentiles for entire IT sector nationally
         worksheet = SHEET.worksheet("national")
@@ -416,27 +448,33 @@ def compare_respondent_nationally(comparitor, respondent):
     salaries = worksheet.col_values(1)
     tiles = worksheet.col_values(2)
 
-    # the salary of the respondent passed is converted to an interger for comparison purposes
+    # the salary of the respondent passed is converted to an interger
+    # for comparison purposes
     numeric_of_salary = int(salary)
 
     # read through all of the salary quartiles/percentiles
-    # note 'number_of_tiles' used here for range rather than length of column to avoid possibility of junk in spreadsheet rows
+    # note 'number_of_tiles' used here for range rather than length
+    # of column to avoid possibility of junk in spreadsheet rows
     for i in range(1, (number_of_tiles + 1)):
         if int(salaries[i]) < numeric_of_salary:
             tile_of_respondent = tiles[i]
 
-    # retrieve the title corresponding to the role of the respondent in question
+    # retrieve the title corresponding to the role of the respondent
+    # in question
     titles = SHEET.worksheet("roles").col_values(1)
     title = titles[int(role)].title()
 
     # Print details of the respondent being compared
     print(f"\nThe respondent in question has a role of {title}, experience of {experience} years and a salary of {'€{:,}'.format(numeric_of_salary)} euros.")
 
-    # Specify which quartile or percentile (depending on the comparison) they fall into in terms of salary
+    # Specify which quartile or percentile (depending on the comparison)
+    # they fall into in terms of salary
     print(f"\n      They are in {tile_type} {tile_of_respondent} {role_qualifier_text}in terms of salary.\n")
 
-    # Give some context, so print out the salary ranges for all quartiles (if role is being compared) or every 10th percentile
-    # if role not being compared i.e. comparison required to all IT workers nationally
+    # Give some context, so print out the salary ranges for all quartiles
+    # (if role is being compared) or every 10th percentile
+    # if role not being compared i.e. comparison required to all IT workers
+    # nationally
     print(f"      The national salary {tile_type}s are:\n")
     for i in range(len(salaries), 1, -1):
         if (comparitor == "role") or ((i % 20 - 1) == 0):
@@ -445,26 +483,30 @@ def compare_respondent_nationally(comparitor, respondent):
 
 def compare_respondent_nationally_experience(respondent):
     """
-    This function is called if the user has chosen to compare the salary of the respondent with national figures, on the basis
+    This function is called if the user has chosen to compare
+    the salary of the respondent with national figures, on the basis
     of experience.
     """
     # the details of the respondent passed are stored in relevant variables
     name, email, role, experience, salary = respondent
 
-    # Open the worksheet which holds national salary figures on the basis of experience
+    # Open the worksheet which holds national salary figures on the basis
+    # of experience
     worksheet = SHEET.worksheet("experience")
 
     # get the salaries for years of experience
     salaries = worksheet.col_values(2)
 
-    # the salary and expereince of the respondent passed are converted to intergers for comparison  and retrieval purposes
+    # the salary and expereince of the respondent passed are converted to
+    # intergers for comparison  and retrieval purposes
     numeric_of_salary = int(salary)
     numeric_of_experience = int(experience)
 
     # retrieve the average salary nationally for the respondent's experience
     average_salary = int(salaries[numeric_of_experience])
 
-    # retrieve the title corresponding to the role of the respondent in question
+    # retrieve the title corresponding to the role of the respondent in
+    # question
     titles = SHEET.worksheet("roles").col_values(1)
     title = titles[int(role)].title()
 
@@ -486,7 +528,8 @@ def compare_respondent_nationally_experience(respondent):
 
 def select_respondent_to_be_reported_on(respondents_entered):
     """
-    This function allows the user to select the respondent they wish to report on from those added in this session. If there has only
+    This function allows the user to select the respondent they wish to report
+    on from those added in this session. If there has only
     been one added, that is automatically selected
     """
     if len(respondents_entered) == 1:
@@ -504,7 +547,8 @@ def select_respondent_to_be_reported_on(respondents_entered):
 
         # Validate the respondent number which the user chooses
         choice = 0
-        # because numeric validator uses an in range function, use the length of the respondents_entered plus one as
+        # because numeric validator uses an in range function,
+        # use the length of the respondents_entered plus one as
         # the highest choice possible
         highest_respondent_possible_to_choose = len(respondents_entered) + 1
 
@@ -512,15 +556,19 @@ def select_respondent_to_be_reported_on(respondents_entered):
             choice = input("\n\nPlease select respondent you wish to report on: ")
             if validate_numeric(1, highest_respondent_possible_to_choose, choice):
                 break
-        # choice needs to be decremented by one to accurately reference the list of respondents entered
+        # choice needs to be decremented by one to accurately reference the
+        # list of respondents entered
         return respondents_entered[int(choice) - 1]
 
 
 def main_menu():
     """
-    Print the main menu and ask the user to choose an option. The user can choose to enter a respondent's details or to run
-    reports for respondents entered. If the user chooses the second option and no respondent's details have been entered,
-    they will be told that they need to enter at least one respondent before they can run reports against a respondent.
+    Print the main menu and ask the user to choose an option. The user
+    can choose to enter a respondent's details or to run
+    reports for respondents entered. If the user chooses the second
+    option and no respondent's details have been entered,
+    they will be told that they need to enter at least one respondent
+    before they can run reports against a respondent.
     """
     menu_text = """
 \nWhat would you like to do:\n
@@ -534,7 +582,8 @@ def main_menu():
     respondents_entered = []
 
     choice = None
-    # the menu will continue to be presented after a report is chosen until 'Exit is chosen'
+    # the menu will continue to be presented after a report is chosen until
+    # 'Exit is chosen'
     while choice != "3":
         # clear the screen
         clearConsole()
@@ -565,7 +614,8 @@ def main_menu():
 
 def main():
     """
-    The main function, it displays a welcome message and then presents the main menu
+    The main function, it displays a welcome message and then presents
+    the main menu
     """
     print_introduction()
     main_menu()
