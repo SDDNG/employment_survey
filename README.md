@@ -1,31 +1,7 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+# Employment (IT Sector Salary) Survey
+This application allows a user to enter respondents' details into an IT salary survey and then to compare a respondent's salary to the salary of either, other respondents, or, to salaries nationally based on data held on the IT sector.  
 
-Welcome SDDNG,
-
-This is the Code Institute student template for deploying your third portfolio project, the Python command-line project. The last update to this file was: **August 17, 2021**
-
-## Reminders
-
-* Your code must be placed in the `run.py` file
-* Your dependencies must be placed in the `requirements.txt` file
-* Do not edit any of the other files or your code may not deploy properly
-
-## Creating the Heroku app
-
-When you create the app, you will need to add two buildpacks from the _Settings_ tab. The ordering is as follows:
-
-1. `heroku/python`
-2. `heroku/nodejs`
-
-You must then create a _Config Var_ called `PORT`. Set this to `8000`
-
-If you have credentials, such as in the Love Sandwiches project, you must create another _Config Var_ called `CREDS` and paste the JSON into the value field.
-
-Connect your GitHub repository and deploy as normal.
-
-## Constraints
-
-The deployment terminal is set to 80 columns by 24 rows. That means that each line of text needs to be 80 characters or less otherwise it will be wrapped onto a second line.
-
------
-Happy coding!
+Comparisons can be in terms of either role, experience or simply all to other employees. At least one respondent's details must be entered in a session before any comparison reports can be run and during any session, a user can enter as many respondents' details as they wish. If the user has entered only one respondent and then chooses to run a report, the application automatically selects that one respondent, if however, they have entered more than one respondent, they are prompted to select the respondent they wish to run comparisons against.
+## Main menu
+After a welcome screen is displayed:
+<img width="377" alt="Welcome Screen" src="https://user-images.githubusercontent.com/70945839/161566910-d7f9a598-efd3-434a-a251-4752b2499ee6.png">
