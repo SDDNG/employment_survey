@@ -63,6 +63,10 @@ The respondent selected is compared to data held for salaries for people in the 
 <img width="833" alt="all IT nationally" src="https://user-images.githubusercontent.com/70945839/161577053-16018219-d18e-4eb0-94a2-86a282d64d3b.png">
 
 ## Data Model
+### Respondent
+A respondent is an object comprised of name, email, role, experience and salary. The first two are optional strings while the last three are numerics.
+
+Within the program, the component items of a respondent are captured and validated then added to a list of respondents entered in that session of the program and appended to a respondent tab in a Google spreadsheet, see below.  
 
 ### Google Spreadsheet
 A Google Spreadsheet with 8 tabs was created: 
