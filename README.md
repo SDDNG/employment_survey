@@ -120,6 +120,11 @@ The re module was installed to allow validation of email formats.
 
 The OS module was installed to allow the screen to be cleared at various points in the program.
 
+## Program flow
+
+<img width="284" alt="flowchart" src="https://user-images.githubusercontent.com/70945839/161585963-06832de4-9296-47e6-ae0d-e5c4dee63548.png">
+
+
 ## Credits 
 
 The Code institute GitHub templates and the modules from the Diploma in Software Development were referenced repeatedly. W3Schools.com, W3org.com and StackOverflow.com were all also referenced liberally.
