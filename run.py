@@ -85,8 +85,8 @@ def get_respondent():
     while True:
         experience = input("\nHow many years have you worked in IT: ")
         # a respondent must have worked at least one year and not more
-        # than 50 years
-        if validate_numeric(1, 51, experience):
+        # than 40 years
+        if validate_numeric(1, 41, experience):
             break
 
     while True:
