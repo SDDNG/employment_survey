@@ -38,7 +38,7 @@ The respondent selected is compared to all other respondents with the same role,
 <img width="722" alt="respondent to respondents role" src="https://user-images.githubusercontent.com/70945839/161573175-4f733384-7457-40be-a03e-dfe1d7b2ee4e.png">
 
 ## Report 2: Compare the respondent's salary to other respondents in terms of their experience
-The respondent selected is compared to all other respondents with the similar experience i.e. =/- a year, the number of respondents with a higher salary, if any is displayed, the number with the same salary, if any, is displayed and the number with a lower salary, if any, is displayed. The program pauses so the user can look at the information and they are requested to press a key when they wish to continue:
+The respondent selected is compared to all other respondents with the similar experience i.e. +/- a year, the number of respondents with a higher salary, if any is displayed, the number with the same salary, if any, is displayed and the number with a lower salary, if any, is displayed. The program pauses so the user can look at the information and they are requested to press a key when they wish to continue:
 
 <img width="707" alt="respondent to respondents experience" src="https://user-images.githubusercontent.com/70945839/161573763-823ef24c-470e-4a67-873a-ea611be22528.png">
 
