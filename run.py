@@ -23,7 +23,7 @@ This program accepts user input as part of a salary survey. The respondent can
 optionally provide name and email, and must provide role (from a list of
 defined roles), experience in terms of yearsand salary. Once the respondents
 response has been registerd they are provided the option to compare their
-salary to other respondents or to national results. In both categories,
+salary to other respondents or to national results. In both sections,
 respondents can compare in terms of role, experience or all others
 """
 
@@ -63,7 +63,7 @@ def get_respondent():
     while True:
         email = input("\nPlease enter your email (optional): ")
         # an email address is not mandatory but if one has been specified
-        # then it must be valid
+        # then it must be valid format
         if email == "":
             break
         elif email_validate(email):
@@ -133,6 +133,8 @@ def validate_numeric(start, end, value):
 def update_respondents(respondent, respondents_entered):
     """
     Update worksheet, add new row with the respondent filled in
+    Also update array holding all respondents entered this in
+    this session
     """
     print("\nUpdating respondents worksheet...\n")
     worksheet_to_update = SHEET.worksheet("respondents")
@@ -170,7 +172,11 @@ Which report would you like to run?\n
         clearConsole()
         print(menu_text)
         # validate that the option chosen is valid and store it
-        choice = get_menu_choice(1, 7)
+        while True:
+            choice = input("Please select option: ")
+            # valid choice is between 1 and 7
+            if validate_numeric(1, 8, choice):
+                break
         # pass the report option and details of the respondent entered to a
         # function which will validate the report choice in terms of whether
         # there is enough data to run and, if so, to subsequently run the
@@ -208,23 +214,6 @@ Which report would you like to run?\n
 
         if choice != "7":
             wait = input("Press any key to continue: ")
-
-
-def get_menu_choice(first_menu_option, last_menu_option):
-    """
-    Validate the menu option the user choose and return if valid
-    """
-    first_menu_option = 1
-    # because numeric validator uses an in range function,
-    # add one to the last menu option possible
-    last_menu_option += 1
-
-    while True:
-        choice = input("Please select option: ")
-        if validate_numeric(first_menu_option, last_menu_option, choice):
-            break
-
-    return choice
 
 
 def compare_respondent_to_other_respondents(comparitor, respondent):
@@ -590,7 +579,12 @@ def main_menu():
         print("                                MAIN MENU")
         print(menu_text)
         # validate that the option chosen is valid and store it
-        choice = get_menu_choice(1, 3)
+        #choice = get_menu_choice(1, 3)
+        while True:
+            choice = input("Please select option: ")
+            # valid choice is between 1 and 3
+            if validate_numeric(1, 4, choice):
+                break
         # Process the menu choice
         if choice == "1":
             # option to enter a respondent's details
