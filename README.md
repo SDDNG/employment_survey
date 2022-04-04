@@ -95,11 +95,13 @@ It would be good to implement the ability to send an email summarising a rsponde
 
 ## Testing 
 
-Testing was performed on each individual field to make sure that proper validation was performed i.e. that menus will only accept selections which are valid and respondent data is, either, in a valid numerice range or emails are correct format. The menu navigation i.e. iteration was also tested. 
+Testing was performed on each individual field to make sure that proper validation was performed i.e. that menus will only accept selections which are valid and respondent data is, either, in a valid numerice range or emails are correct format. 
 
 Scenarios where reports were attempted to be run with no respondents previously entered were tested and these successfully stopped the reports from being run. 
 Scenarios were tested where reports were run after only one respondent was entered and that respondent was automatically selected for comparison.
 Scenarios were tested where reports were run after multiple respondents were entered and the user was forced to choose one before the report could proceed. 
+
+The menu navigation i.e. iteration was also tested. 
 
 ### Validator Testing 
 The run.py code was run through pycodestyle and all significant errors were fixed. The remaining errors were for lines, either text from the program or logic for the program which were over 79 characters. 
