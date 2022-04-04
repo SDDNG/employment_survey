@@ -108,22 +108,22 @@ The run.py code was run through pycodestyle and all significant errors were fixe
 
 ### Unfixed Bugs
 
-There are no obvious functional bugs but a decision was made not to check each field as it is entered with dedicated Event Listeners but rather to check at significant stages e.g. when the Calculate Maintenance Calories button is clicked, when the Target (in terms of weight) is changed or when the Composition in terms of Macronutrients is changed. This makes for a better experience most of the time but there are some situations where it might be frustrating to have to change an input. It also means if a Current Maintenance Amount is calculated and then a field is changed but the Calculate Maintenance Calories button is not pressed again that the user might be misled (although this is unlikely). It was felt that continually recalculating fields everytime one value changed would be unpleasant for the user.
-
-Another area that would be nice to have a more elegant solution to is in the Macronutrient Composition is set to a number other than 100%, the user is warned but in some instances resetting the numbers might be preferable, however, in other cases it was felt that this could be misleading if the user was unknowingly left with a composition they did not intend and on balance this was a worse situation.
-
-One area that was not addressed is to optimise the display based on the display scale of the device. The programming occured on a laptop where the display was set to 150% and it fits best there. When it is changed to 100%, the application still looks reasonable and functions but it would be optimal if the font size automatically adjusted to make better use of the relatively larger screen. Some prelimiary investigation of this indicated that it is possible with some dynamic media queries in the javascript code interacting with the CSS. 
+There are no known functional bugs. 
 
 ## Deployment
-- The site was deployed to GitHub pages. 
+- The site was deployed to Heroku. 
+
+## Modules installed
+gspread and Credential from google.oauth2.service_account were both installed.
+
+The re module was installed to allow validation of email formats.
+
+The OS module was installed to allow the screen to be cleared at various points in the program.
 
 ## Credits 
 
-The Code institute GitHub templates and the modules from the Diploma in Software Development (E-commerce Applications) were referenced repeatedly. W3Schools.com, W3org.com and StackOverflow.com were all also referenced liberally.
+The Code institute GitHub templates and the modules from the Diploma in Software Development were referenced repeatedly. W3Schools.com, W3org.com and StackOverflow.com were all also referenced liberally.
 
-For the actual Calorie Maintenance formulas https://tdeecalculator.net/ and https://www.calculator.net/tdee-calculator.html were used along with Wikipedia and the book The Lean Muscle Diet by Alan Aragon and Lou Schuler.
-
-Google Fonts and Favicon.io were also utilised.
 
 
 
