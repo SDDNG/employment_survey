@@ -5,3 +5,6 @@ Comparisons can be in terms of either role, experience or simply all to other em
 ## Main menu
 After a welcome screen is displayed:
 <img width="377" alt="Welcome Screen" src="https://user-images.githubusercontent.com/70945839/161566910-d7f9a598-efd3-434a-a251-4752b2499ee6.png">
+the main menu is displayed:
+<img width="479" alt="Main Menu" src="https://user-images.githubusercontent.com/70945839/161567468-497657fd-d2cc-4862-880e-44864fff5067.png">
+
