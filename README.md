@@ -4,7 +4,10 @@ This application allows a user to enter respondents' details into an IT salary s
 Comparisons can be in terms of either role, experience or simply all to other employees. At least one respondent's details must be entered in a session before any comparison reports can be run and during any session, a user can enter as many respondents' details as they wish. If the user has entered only one respondent and then chooses to run a report, the application automatically selects that one respondent, if however, they have entered more than one respondent, they are prompted to select the respondent they wish to run comparisons against.
 ## Main menu
 After a welcome screen is displayed:
+
 <img width="377" alt="Welcome Screen" src="https://user-images.githubusercontent.com/70945839/161566910-d7f9a598-efd3-434a-a251-4752b2499ee6.png">
+
 the main menu is displayed:
+
 <img width="479" alt="Main Menu" src="https://user-images.githubusercontent.com/70945839/161567468-497657fd-d2cc-4862-880e-44864fff5067.png">
 
