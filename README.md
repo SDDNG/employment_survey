@@ -42,6 +42,23 @@ The respondent selected is compared to all other respondents with the similar ex
 
 <img width="707" alt="respondent to respondents experience" src="https://user-images.githubusercontent.com/70945839/161573763-823ef24c-470e-4a67-873a-ea611be22528.png">
 
+## Report 3: Compare the respondent's salary to all other respondents, regardless of role or experience
+The respondent selected is compared to all other respondents, the number of respondents with a higher salary, if any is displayed, the number with the same salary, if any, is displayed and the number with a lower salary, if any, is displayed. The program pauses so the user can look at the information and they are requested to press a key when they wish to continue:
+
+<img width="719" alt="Respondent to all other respondents" src="https://user-images.githubusercontent.com/70945839/161574526-57d94b50-e0e4-48cf-918e-1ccb7b28309a.png">
+
+## Report 4: Compare the respondent's salary to national data, in terms of role
+The respondent selected is compared to data held for salaries for people with a similar role. The information is saved in quartiles, so the user is told which quartile the respondent falls into and the lower salary range for each quartile. 
+
+<img width="739" alt="role nationally" src="https://user-images.githubusercontent.com/70945839/161575287-ee6bcd16-5b92-46f4-8974-f4b89b9a966b.png">
+
+## Report 5: Compare the respondent's salary to national data, in terms of experience
+The respondent selected is compared to data held for salaries for people with the same experience. The salary of the respondent is compared in terms of percentage of the national average for that level of experience.
+
+<img width="739" alt="role nationally" src="https://user-images.githubusercontent.com/70945839/161575287-ee6bcd16-5b92-46f4-8974-f4b89b9a966b.png">
+
+
+
 
 
 
