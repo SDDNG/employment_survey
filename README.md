@@ -11,3 +11,9 @@ the main menu is displayed:
 
 <img width="479" alt="Main Menu" src="https://user-images.githubusercontent.com/70945839/161567468-497657fd-d2cc-4862-880e-44864fff5067.png">
 
+From the main menu, the user has the choice of entering a repondent's details, running a report or Exiting. If they wish to run a report they must have entered at least one repondent's details, as all of the reports are comparison reports and they need something to compare to. If they try to choose the reports menu and at least one respondent has not been entered, they will be presented with a message telling them they must enter at least one respondent:
+
+<img width="648" alt="At least one respondent" src="https://user-images.githubusercontent.com/70945839/161568907-60232bd0-1078-44d7-a054-b593f26fdedd.png">
+
+
+
