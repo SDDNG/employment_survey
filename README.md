@@ -15,5 +15,36 @@ From the main menu, the user has the choice of entering a repondent's details, r
 
 <img width="648" alt="At least one respondent" src="https://user-images.githubusercontent.com/70945839/161568907-60232bd0-1078-44d7-a054-b593f26fdedd.png">
 
+## Entering a respondent's details
+The user is asked to enter the respondent's name (optional), email (optional), role (from 8 pre-defined roles), experience and salary.
+
+<img width="346" alt="Entering Respondent's Details" src="https://user-images.githubusercontent.com/70945839/161569666-80c54f73-c140-4c7b-bc49-cdf2358cb9f3.png">
+
+If an email is entered, it must be in a valid format. The role must be one of the pre-defined ones, experience can be between one and fifty years and salary must be between €10,000 and €500,000. Once valid data has been entered, the details will be added to a Google Spreadsheet and a list of respondents added during the current session - there is more detail about the data model below.
+## Report menu
+If the user chooses the report menu and they have entered more than one respondent during this session then they will be asked to select from those respondents entered:
+
+<img width="494" alt="Respondents entered this session" src="https://user-images.githubusercontent.com/70945839/161571184-edd1f32b-f61a-424c-9b8d-def596efa851.png">
+
+If they have only entered one respondent in the session, then that respondent will be automatically selected. Once a respondent has been selected the user is presented with the report menu:
+
+<img width="463" alt="Report menu" src="https://user-images.githubusercontent.com/70945839/161571985-8fd2dd03-3100-415b-9ee7-b2bfbc3d9fe4.png">
+
+From here they can choose one of six reports or choose to exit back to the main menu. When they run a report, they are returned to the report menu and they can run as many reports sequentially as they want before they choose to return to the main menu.
+
+## Report 1: Compare the respondent's salary to other respondents in terms of their role
+The respondent selected is compared to all other respondents with the same role, the number of respondents with a higher salary, if any is displayed, the number with the same salary, if any, is displayed and the number with a lower salary, if any, is displayed. The program pauses so the user can look at the information and they are requested to press a key when they wish to continue:
+
+<img width="722" alt="respondent to respondents role" src="https://user-images.githubusercontent.com/70945839/161573175-4f733384-7457-40be-a03e-dfe1d7b2ee4e.png">
+
+## Report 2: Compare the respondent's salary to other respondents in terms of their experience
+The respondent selected is compared to all other respondents with the similar experience i.e. =/- a year, the number of respondents with a higher salary, if any is displayed, the number with the same salary, if any, is displayed and the number with a lower salary, if any, is displayed. The program pauses so the user can look at the information and they are requested to press a key when they wish to continue:
+
+<img width="707" alt="respondent to respondents experience" src="https://user-images.githubusercontent.com/70945839/161573763-823ef24c-470e-4a67-873a-ea611be22528.png">
+
+
+
+
+
 
 
