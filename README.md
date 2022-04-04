@@ -62,6 +62,56 @@ The respondent selected is compared to data held for salaries for people in the 
 
 <img width="833" alt="all IT nationally" src="https://user-images.githubusercontent.com/70945839/161577053-16018219-d18e-4eb0-94a2-86a282d64d3b.png">
 
+## Data Model
+
+### Google Spreadsheet
+A Google Spreadsheet with 8 tabs was created: 
+The first tab stores the respondent data i.e. name (if one entered), email (if one entered), role, expereince and salary. Name and email in a real world setting would need to be handled appropriatley from a data protection standpoint.
+The second tab stores the bottom salary level for each percentile of people nationally in the IT sector.
+The third tab stores the average salary for each year, 1 to 40, of experience.
+
+### Features Left to Implement
+
+It would be good to implement the ability to send an email summarising a rspondent in terms of the six reports.
+
+## Testing 
+
+Testing was performed on each individual field, functional area and the interaction of the functional areas. Before the user can calculate a maintenance calorie amount, it was ensured that all fields need to be specified correctly and before a target calorie amount can be specified, it is required that a maintenance amount be calculated. If a user specified a macro percentage breakdown that is not 100%  warning is issued.
+
+During the testing, it was decided that Event Listeners should be used in such a way that alerts were not called incessantly if a user were to mistype but called when a significant operation was about to occur. This was judged to be the right balance between ensuring accurate inputs without making the user exprience cumbersome.
+
+When the screen width goes below 950px, the Target Goals section moves from the right of the screen to below the Current Maintenance Calories section. When the screen width goes below 460px, the width of columns in the Macro Composition area is reduced.
+
+The application works on an iPhone but it does not look as well as it might, some additional time would ideally be spent in addressing this.
+
+The application has some issues on Firefox in that the area where macronutrient percentages are displayed are automatically displayed with up and down arrows beside them obscuring the fields, some additional time would ideally be spent addressing this. 
+
+One area that was not addressed is to optimise the display based on the display scale of the device. The programming occured on a laptop where the display was set to 150% and it fits best there. When it is changed to 100%, the application still looks reasonable and functions but it would be optimal if the font size automatically adjusted to make better use of the relatively larger screen. Some prelimiary investigation of this indicated that it is possible with some dynamic media queries in the javascript code interacting with the CSS.  
+
+### Validator Testing 
+The run.py code was run through pycodestyle and all significant errors were fixed. The remaining errors were for lines, either text from the program or logic for the program which were over 79 characters. 
+
+### Unfixed Bugs
+
+There are no obvious functional bugs but a decision was made not to check each field as it is entered with dedicated Event Listeners but rather to check at significant stages e.g. when the Calculate Maintenance Calories button is clicked, when the Target (in terms of weight) is changed or when the Composition in terms of Macronutrients is changed. This makes for a better experience most of the time but there are some situations where it might be frustrating to have to change an input. It also means if a Current Maintenance Amount is calculated and then a field is changed but the Calculate Maintenance Calories button is not pressed again that the user might be misled (although this is unlikely). It was felt that continually recalculating fields everytime one value changed would be unpleasant for the user.
+
+Another area that would be nice to have a more elegant solution to is in the Macronutrient Composition is set to a number other than 100%, the user is warned but in some instances resetting the numbers might be preferable, however, in other cases it was felt that this could be misleading if the user was unknowingly left with a composition they did not intend and on balance this was a worse situation.
+
+One area that was not addressed is to optimise the display based on the display scale of the device. The programming occured on a laptop where the display was set to 150% and it fits best there. When it is changed to 100%, the application still looks reasonable and functions but it would be optimal if the font size automatically adjusted to make better use of the relatively larger screen. Some prelimiary investigation of this indicated that it is possible with some dynamic media queries in the javascript code interacting with the CSS. 
+
+## Deployment
+- The site was deployed to GitHub pages. 
+
+## Credits 
+
+The Code institute GitHub templates and the modules from the Diploma in Software Development (E-commerce Applications) were referenced repeatedly. W3Schools.com, W3org.com and StackOverflow.com were all also referenced liberally.
+
+For the actual Calorie Maintenance formulas https://tdeecalculator.net/ and https://www.calculator.net/tdee-calculator.html were used along with Wikipedia and the book The Lean Muscle Diet by Alan Aragon and Lou Schuler.
+
+Google Fonts and Favicon.io were also utilised.
+
+
+
 
 
 
