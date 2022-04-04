@@ -66,9 +66,22 @@ The respondent selected is compared to data held for salaries for people in the 
 
 ### Google Spreadsheet
 A Google Spreadsheet with 8 tabs was created: 
+
 The first tab stores the respondent data i.e. name (if one entered), email (if one entered), role, expereince and salary. Name and email in a real world setting would need to be handled appropriatley from a data protection standpoint.
+
 The second tab stores the bottom salary level for each percentile of people nationally in the IT sector.
+
 The third tab stores the average salary for each year, 1 to 40, of experience.
+
+The fourth tab stores the bottom salary level for each quartile of people with the role of developer.
+
+The fifth tab stores the bottom salary level for each quartile of people with the role of senior developer.
+
+The sixth tab stores the bottom salary level for each quartile of people with the role of Technical Lead.
+
+The seventh tab stores the bottom salary level for each quartile of people with the role of Head of Engineering.
+
+The eight tab stores the eight roles and their respective salary ranges.
 
 ### Features Left to Implement
 
