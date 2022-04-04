@@ -184,7 +184,7 @@ Which report would you like to run?\n
         # Execute the appropriate function based on the user's choice of report
         if choice == "1":
             # the function called compares the salary of respondent passed to
-            # those of other repsondents with the same role
+            # those of other respondents with the same role
             compare_respondent_to_other_respondents("role", respondent)
         elif choice == "2":
             # the function called compares the salary of respondent passed to
@@ -368,6 +368,8 @@ def display_respondent_to_other_respondents_report(comparitor, respondent):
         print(f"      Of those {salaries_above} had a higher salary than the respondent.\n")
     if salaries_above != 0:
         print(f"      Of those {salaries_below} had a lower salary than the respondent.\n")
+    # same reasoning but ignore one row as that will be the respondent
+    # being compared
     if salaries_same != 1:
         print(f"      Of those {salaries_same -1} had the same salary as the respondent.\n")
 
