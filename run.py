@@ -35,7 +35,7 @@ def print_introduction():
     # clear the screen
     clearConsole()
     print("\nWelcome to the Information Technology Salary Survey\n")
-    wait = input("Press any key to continue: ")
+    wait = input("Press any key to continue: \n")
     return
 
 
@@ -58,10 +58,10 @@ def get_respondent():
 
     print("DATA ENTRY SCREEN FOR RESPONDENT DATA")
 
-    name = input("\nPlease enter your name (optional): ")
+    name = input("\nPlease enter your name (optional): \n")
 
     while True:
-        email = input("\nPlease enter your email (optional): ")
+        email = input("\nPlease enter your email (optional): \n")
         # an email address is not mandatory but if one has been specified
         # then it must be valid format
         if email == "":
@@ -78,19 +78,19 @@ def get_respondent():
 
     while True:
         # there are eight valid roles
-        role = input("\n\nEnter role 1 to 8: ")
+        role = input("\n\nEnter role 1 to 8: \n")
         if validate_numeric(1, 9, role):
             break
 
     while True:
-        experience = input("\nHow many years have you worked in IT: ")
+        experience = input("\nHow many years have you worked in IT: \n")
         # a respondent must have worked at least one year and not more
         # than 40 years
         if validate_numeric(1, 41, experience):
             break
 
     while True:
-        salary = input("\nWhat is your current salary in euros: ")
+        salary = input("\nWhat is your current salary in euros: \n")
         # valid salaries are between 10,000 and 500,000 euros
         if validate_numeric(10000, 500001, salary):
             break
@@ -173,7 +173,7 @@ Which report would you like to run?\n
         print(menu_text)
         # validate that the option chosen is valid and store it
         while True:
-            choice = input("Please select option: ")
+            choice = input("Please select option: \n")
             # valid choice is between 1 and 7
             if validate_numeric(1, 8, choice):
                 break
@@ -213,7 +213,7 @@ Which report would you like to run?\n
             print("\nExiting report menu ........\n\n")
 
         if choice != "7":
-            wait = input("Press any key to continue: ")
+            wait = input("Press any key to continue: \n")
 
 
 def compare_respondent_to_other_respondents(comparitor, respondent):
@@ -544,7 +544,7 @@ def select_respondent_to_be_reported_on(respondents_entered):
         highest_respondent_possible_to_choose = len(respondents_entered) + 1
 
         while True:
-            choice = input("\n\nPlease select respondent you wish to report on: ")
+            choice = input("\n\nPlease select respondent you wish to report on: \n")
             if validate_numeric(1, highest_respondent_possible_to_choose, choice):
                 break
         # choice needs to be decremented by one to accurately reference the
@@ -583,7 +583,7 @@ def main_menu():
         # validate that the option chosen is valid and store it
         #choice = get_menu_choice(1, 3)
         while True:
-            choice = input("Please select option: ")
+            choice = input("Please select option: \n")
             # valid choice is between 1 and 3
             if validate_numeric(1, 4, choice):
                 break
@@ -597,7 +597,7 @@ def main_menu():
             # the report menu otherwise advise the person to enter one
             if len(respondents_entered) == 0:
                 print("\n        Error: You must enter at least one respondent before you can run reports for a particular respondent!")
-                wait = input("\nPress any key to continue: ")
+                wait = input("\nPress any key to continue: \n")
             else:
                 # get the user to select a respondent from the respondents
                 # entered to be reported on and then offer the report options
