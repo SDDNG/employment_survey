@@ -85,7 +85,7 @@ The sixth tab stores the bottom salary level for each quartile of people with th
 
 The seventh tab stores the bottom salary level for each quartile of people with the role of Head of Engineering.
 
-The eight tab stores the eight roles and their respective salary ranges.
+The eighth tab stores the eight roles and their respective salary ranges.
 
 The program appends respondents to the first tab and then uses the other tabs when creating the comparison reports.
 
