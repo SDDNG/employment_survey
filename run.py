@@ -108,7 +108,7 @@ def email_validate(email_entered):
         return True
 
     # email is not a valid format
-    print("\n        Error: If email entered, it must have a valid format!")
+    print("\nError: If email entered, it must have a valid format!")
     return False
 
 
@@ -124,7 +124,7 @@ def validate_numeric(start, end, value):
                 f"You must choose a number between {start} and {end - 1}"
             )
     except ValueError as e:
-        print(f"        Error: {e}! Please try again ...\n")
+        print(f"\nError: {e}! Please try again ...\n")
         return False
 
     return True
@@ -515,12 +515,12 @@ def compare_respondent_nationally_experience(respondent):
     # express salary as a percentage of average salary
     if numeric_of_salary < average_salary:
         salary_percent = int(round((1 - (numeric_of_salary / average_salary)) * 100, 0))
-        print(f"\nThe respondent's salary is {salary_percent} percent below national average for this experience.\n")
+        print(f"\nRespondent's salary is {salary_percent} percent below national average for this experience.\n")
     elif numeric_of_salary > average_salary:
         salary_percent = int(round(((numeric_of_salary / average_salary) - 1) * 100, 0))
-        print(f"\nThe respondent's salary is {salary_percent} percent above national average for this experience.\n")
+        print(f"\nRespondent's salary is {salary_percent} percent above national average for this experience.\n")
     else:
-        print(f"\nThe respondent's salary is equal to national average for this experience.\n")
+        print(f"\nRespondent's salary is equal to national average for this experience.\n")
 
 
 def select_respondent_to_be_reported_on(respondents_entered):
@@ -602,7 +602,7 @@ def main_menu():
             # check that at least one respondent exists and if it does open
             # the report menu otherwise advise the person to enter one
             if len(respondents_entered) == 0:
-                print("\n        Error: You must enter at least one respondent before you can run reports for a particular respondent!")
+                print("\nError: You must enter at least one respondent before you can run reports for a particular respondent!")
                 wait = input("\nPress any key to continue: \n")
             else:
                 # get the user to select a respondent from the respondents
