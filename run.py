@@ -234,7 +234,7 @@ def compare_respondent_to_other_respondents(comparitor, respondent):
     else:
         # if there are not enough qualifying respondents, the user is informed
         # whereupon they are immediately returned to the report menu
-        print(f"Not enough other respondents with the same or similar {comparitor}")
+        print(f"Not enough respondents with the same/similar {comparitor}")
 
 
 def check_enough_respondents(comparitor, respondent):
@@ -461,7 +461,7 @@ def compare_respondent_nationally(comparitor, respondent):
     print(f"\nThe respondent in question has a role of {title}.")
     print(f"\nExperience of {experience} years.")
     print(f"\nSalary of {'€{:,}'.format(numeric_of_salary)}.")
-    
+
     # Specify which quartile or percentile (depending on the comparison)
     # they fall into in terms of salary
     print(f"\n      They are in {tile_type} {tile_of_respondent} {role_qualifier_text}in terms of salary.\n")
@@ -587,7 +587,6 @@ def main_menu():
         print("                                MAIN MENU")
         print(menu_text)
         # validate that the option chosen is valid and store it
-        #choice = get_menu_choice(1, 3)
         while True:
             choice = input("Please select option: \n")
             # valid choice is between 1 and 3
