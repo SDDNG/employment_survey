@@ -602,7 +602,7 @@ def main_menu():
             # check that at least one respondent exists and if it does open
             # the report menu otherwise advise the person to enter one
             if len(respondents_entered) == 0:
-                print("\nError: You must enter at least one respondent before you can run reports for a particular respondent!")
+                print("\nError: You must enter at least one respondent before you can run reports!")
                 wait = input("\nPress any key to continue: \n")
             else:
                 # get the user to select a respondent from the respondents
