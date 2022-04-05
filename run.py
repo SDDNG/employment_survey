@@ -354,7 +354,9 @@ def display_respondent_to_other_respondents_report(comparitor, respondent):
     titles = SHEET.worksheet("roles").col_values(1)
     title = titles[int(role)].title()
 
-    print(f"\nThe respondent in question has a role of {title}, experience of {experience} years and a salary of {'€{:,}'.format(numeric_of_salary)}.")
+    print(f"\nThe respondent in question has a role of {title}.")
+    print(f"\nExperience of {experience} years.")
+    print(f"\nSalary of {'€{:,}'.format(numeric_of_salary)}.")
 
     # give the total of matching respondents, taking 1 away as the respondent
     # passed is also in the list of respondents so they are not
@@ -366,7 +368,7 @@ def display_respondent_to_other_respondents_report(comparitor, respondent):
 
     if salaries_above != 0:
         print(f"      Of those {salaries_above} had a higher salary than the respondent.\n")
-    if salaries_above != 0:
+    if salaries_below != 0:
         print(f"      Of those {salaries_below} had a lower salary than the respondent.\n")
     # same reasoning but ignore one row as that will be the respondent
     # being compared
@@ -456,8 +458,10 @@ def compare_respondent_nationally(comparitor, respondent):
     title = titles[int(role)].title()
 
     # Print details of the respondent being compared
-    print(f"\nThe respondent in question has a role of {title}, experience of {experience} years and a salary of {'€{:,}'.format(numeric_of_salary)} euros.")
-
+    print(f"\nThe respondent in question has a role of {title}.")
+    print(f"\nExperience of {experience} years.")
+    print(f"\nSalary of {'€{:,}'.format(numeric_of_salary)}.")
+    
     # Specify which quartile or percentile (depending on the comparison)
     # they fall into in terms of salary
     print(f"\n      They are in {tile_type} {tile_of_respondent} {role_qualifier_text}in terms of salary.\n")
@@ -502,19 +506,21 @@ def compare_respondent_nationally_experience(respondent):
     title = titles[int(role)].title()
 
     # Print details of the respondent being compared
-    print(f"\nThe respondent in question has a role of {title}, experience of {experience} years and a salary of {'€{:,}'.format(int(salary))} euros.")
+    print(f"\nThe respondent in question has a role of {title}.")
+    print(f"\nExperience of {experience} years.")
+    print(f"\nSalary of {'€{:,}'.format(numeric_of_salary)}.")
 
-    print(f"\n        The average salary nationally for this level of experience is {'€{:,}'.format(int(salaries[numeric_of_experience]))}.")
+    print(f"\nThe average salary nationally for this level of experience is {'€{:,}'.format(int(salaries[numeric_of_experience]))}.")
 
     # express salary as a percentage of average salary
     if numeric_of_salary < average_salary:
         salary_percent = int(round((1 - (numeric_of_salary / average_salary)) * 100, 0))
-        print(f"\n        The respondent's salary is {salary_percent} percent below the national average for this level of experience.\n")
+        print(f"\nThe respondent's salary is {salary_percent} percent below national average for this experience.\n")
     elif numeric_of_salary > average_salary:
         salary_percent = int(round(((numeric_of_salary / average_salary) - 1) * 100, 0))
-        print(f"\n        The respondent's salary is {salary_percent} percent above the national average for this level of experience.\n")
+        print(f"\nThe respondent's salary is {salary_percent} percent above national average for this experience.\n")
     else:
-        print(f"\n        The respondent's salary is equal to the national average for this level of experience.\n")
+        print(f"\nThe respondent's salary is equal to national average for this experience.\n")
 
 
 def select_respondent_to_be_reported_on(respondents_entered):
