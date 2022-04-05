@@ -71,7 +71,7 @@ Within the program, the component items of a respondent are captured and validat
 ### Google Spreadsheet
 A Google Spreadsheet with 8 tabs was created: 
 
-The first tab stores the respondent data i.e. name (if one entered), email (if one entered), role, expereince and salary. Name and email in a real world setting would need to be handled appropriatley from a data protection standpoint.
+The first tab stores the respondent data i.e. name (if one entered), email (if one entered), role, experience and salary. Name and email in a real world setting would need to be handled appropriatley from a data protection standpoint.
 
 The second tab stores the bottom salary level for each percentile of people nationally in the IT sector.
 
