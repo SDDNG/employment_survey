@@ -20,7 +20,7 @@ The user is asked to enter the respondent's name (optional), email (optional), r
 
 <img width="346" alt="Entering Respondent's Details" src="https://user-images.githubusercontent.com/70945839/161569666-80c54f73-c140-4c7b-bc49-cdf2358cb9f3.png">
 
-If an email is entered, it must be in a valid format. The role must be one of the pre-defined ones, experience can be between one and fifty years and salary must be between €10,000 and €500,000. Once valid data has been entered, the details will be added to a Google Spreadsheet and a list of respondents added during the current session - there is more detail about the data model below.
+If an email is entered, it must be in a valid format. The role must be one of the pre-defined ones, experience can be between one and forty years and salary must be between €10,000 and €500,000. Once valid data has been entered, the details will be added to a Google Spreadsheet and a list of respondents added during the current session - there is more detail about the data model below.
 ## Report menu
 If the user chooses the report menu and they have entered more than one respondent during this session then they will be asked to select from those respondents entered:
 
